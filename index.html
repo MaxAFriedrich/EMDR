@@ -39,7 +39,8 @@
         <span>Direction:</span>
         <button style="background-color: white; color:black;" onclick="direction(0);">Horizontal</button>
         <button style="background-color: white; color:black;" onclick="direction(1);">Diagonal L/R</button>
-        <button style="background-color: white; color:black; margin-bottom: 0.3%;" onclick="direction(2);">Diagonal R/L</button>
+        <button style="background-color: white; color:black; margin-bottom: 0.3%;" onclick="direction(2);">Diagonal
+            R/L</button>
     </div>
 
     <script>
@@ -51,11 +52,11 @@
         var body = document.getElementById("body");
         var sh = true;
         var ss = true;
-        var i=100;
+        var i = 170;
         var dirSet = 0;
         var opp;
         var change = 2;
-        var j=0;
+        var j = 0;
         function direction(content) {
             if (content == 0) {
                 dirSet = 0;
@@ -75,10 +76,11 @@
             } else if (sh == false) {
                 document.getElementById('settings').style.display = 'block';
                 sh = true;
-                j=0;
+                j = 0;
             }
         }
         function stopStart() {
+            j = 0;
             if (ss == true) {
                 ss = false;
             } else if (ss == false) {
@@ -105,17 +107,27 @@
             body.style.backgroundColor = content;
         }
         function runner() {
+
+            var windowWidth = window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth;
+
+            var windowHeight = window.innerHeight
+                || document.documentElement.clientHeight
+                || document.body.clientHeight;
             if (ss == true) {
                 change = Number(changeValObj.innerText);
                 if (dirSet == 0) {
-                    if (i >= screen.width-100) {
+                    if (i >= windowWidth - 175) {
                         opp = false;
-                    } else if (i <= 100) {
+                    } else if (i <= 175) {
                         opp = true;
                         j++;
-                        if(j>=Number(changeSetObj.innerText)){
-                            ss=false;
+                        if (j >= Number(changeSetObj.innerText)) {
+                            ss = false;
+                            j = 0;
                         }
+
                     }
                     obj.style.removeProperty('right');
                     obj.style.removeProperty('left');
@@ -126,38 +138,42 @@
 
 
                 } else if (dirSet == 1) {
-                    if (i >= screen.height-100) {
+                    if (i >= windowWidth - 100) {
                         opp = false;
                     } else if (i <= 50) {
                         opp = true;
                         j++;
-                        if(j>=Number(changeSetObj.innerText)){
-                            ss=false;
+                        if (j >= Number(changeSetObj.innerText)) {
+                            ss = false;
+                            j = 0;
+
                         }
                     }
                     obj.style.removeProperty('right');
                     obj.style.removeProperty('left');
                     obj.style.removeProperty('top');
                     obj.style.left = i + "pt";
-                    obj.style.top = i *0.6 + "pt";
+                    obj.style.top = i * 0.6 + "pt";
 
 
-                
+
                 } else if (dirSet == 2) {
-                    if (i >= screen.height-100) {
+                    if (i >= windowHeight - 100) {
                         opp = false;
                     } else if (i <= 100) {
                         opp = true;
                         j++;
-                        if(j>=Number(changeSetObj.innerText)){
-                            ss=false;
+                        if (j >= Number(changeSetObj.innerText)) {
+                            ss = false;
+                            j = 0;
+
                         }
                     }
                     obj.style.removeProperty('right');
                     obj.style.removeProperty('left');
                     obj.style.removeProperty('top');
                     obj.style.right = i + "pt";
-                    obj.style.top = i *0.5 + "pt";
+                    obj.style.top = i * 0.5 + "pt";
 
 
 
@@ -206,7 +222,16 @@
             margin-top: 0.3%;
             z-index: 3;
         }
+        .github{
+            color: black;
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            font-size: small;
+            float: right;
+        }
     </style>
+    <a class="github" target="_blank" href="https://github.com/MaxAFriedrich/EMDR">Github</a>
 </body>
 
 </html>
