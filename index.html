@@ -4,7 +4,6 @@
 <head>
     <title EMDR demo></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
 </head>
 
 <body id="body" class="body">
@@ -222,16 +221,26 @@
             margin-top: 0.3%;
             z-index: 3;
         }
-        .github{
+
+        .github {
             color: black;
-            position: absolute;
+            position: fixed;
             bottom: 2px;
-            right: 2px;
+            right:2px;
+
             font-size: small;
             float: right;
         }
+        .gitEl{
+            margin-right: 10px;
+        }
     </style>
-    <a class="github" target="_blank" href="https://github.com/MaxAFriedrich/EMDR">Github</a>
+    <div class="github"> 
+        <a class="gitEl"  target="_blank" href="https://github.com/MaxAFriedrich/EMDR">Github</a>
+        <a  class="gitEl"  target="_blank" href="https://gitreports.com/issue/MaxAFriedrich/EMDR">bug report/feedback</a>
+        <a  class="gitEl"  target="_blank" href="https://github.com/MaxAFriedrich/EMDR/wiki">help</a>
+    </div>
+
 </body>
 
 </html>
