@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title EMDR demo></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body id="body" class="body">
+    <div id="movingDiv" class="movingDiv"></div>
+    <button onclick="showHide()">Show/Hide</button>
+    <button onclick="stopStart()">Stop/Start</button>
+    <div class="inp" id="settings">
+        <div class="inp"><span>Speed:</span><span contenteditable="True"
+                style="display: inline-block ; width:100px; border: 1px; margin-top:0.3%;" id="changeVal">2</span>
+        </div>
+        <div class="inp"><span>Sets:</span><span contenteditable="True"
+                style="display: inline-block ; width:100px; border: 1px; margin-top:0.3%;" id="changeSet">2</span>
+        </div>
+        <span>Color:</span>
+        <button style="background-color: red;" onclick="buttonAction('red');">red</button>
+        <button style="background-color: orange;" onclick="buttonAction('orange');">orange</button>
+        <button style="background-color: lawngreen;" onclick="buttonAction('lawngreen');">green</button>
+        <button style="background-color: aqua;" onclick="buttonAction('aqua');">blue</button>
+        <button style="background-color: blueviolet;" onclick="buttonAction('blueviolet');">purple</button>
+        <button style="background-color: violet;" onclick="buttonAction('violet');">pink</button>
+        <br>
+        <span>Background:</span>
+        <button style="background-color: black; color:whitesmoke;" onclick="buttonBakground('black');">black</button>
+        <button style="background-color: grey; color:black;" onclick="buttonBakground('grey');">grey</button>
+        <button style="background-color: white; color:black;" onclick="buttonBakground('white');">white</button>
+        <br>
+        <span>Size:</span>
+        <button style="background-color: white; color:black;" onclick="ballSize(0);">small</button>
+        <button style="background-color: white; color:black;" onclick="ballSize(1);">medium</button>
+        <button style="background-color: white; color:black;" onclick="ballSize(2);">large</button>
+        <br>
+        <span>Direction:</span>
+        <button style="background-color: white; color:black;" onclick="direction(0);">Horizontal</button>
+        <button style="background-color: white; color:black;" onclick="direction(1);">Diagonal L/R</button>
+        <button style="background-color: white; color:black; margin-bottom: 0.3%;" onclick="direction(2);">Diagonal
+            R/L</button>
+    </div>
+
+    <script>
+        var obj = document.getElementById("movingDiv");
+        var changeValObj = document.getElementById("changeVal");
+        var changeSetObj = document.getElementById("changeSet");
+        var colValObj = document.getElementById("colVal");
+        var backValObj = document.getElementById("backVal");
+        var body = document.getElementById("body");
+        var sh = true;
+        var ss = true;
+        var i = 170;
+        var dirSet = 0;
+        var opp;
+        var change = 2;
+        var j = 0;
+        function direction(content) {
+            if (content == 0) {
+                dirSet = 0;
+
+            } else if (content == 1) {
+                dirSet = 1;
+
+            } else if (content == 2) {
+                dirSet = 2;
+
+            }
+        }
+        function showHide() {
+            if (sh == true) {
+                document.getElementById('settings').style.display = 'none';
+                sh = false;
+            } else if (sh == false) {
+                document.getElementById('settings').style.display = 'block';
+                sh = true;
+                j = 0;
+            }
+        }
+        function stopStart() {
+            j = 0;
+            if (ss == true) {
+                ss = false;
+            } else if (ss == false) {
+                ss = true;
+            }
+        }
+
+        function ballSize(content) {
+            var out;
+            if (content == 0) {
+                out = 75;
+            } else if (content == 1) {
+                out = 100;
+            } else if (content == 2) {
+                out = 175;
+            }
+            obj.style.height = out + "px";
+            obj.style.width = out + "px";
+        }
+        function buttonAction(content) {
+            obj.style.backgroundColor = content;
+        }
+        function buttonBakground(content) {
+            body.style.backgroundColor = content;
+        }
+        function runner() {
+
+            var windowWidth = window.innerWidth
+                || document.documentElement.clientWidth
+                || document.body.clientWidth;
+
+            var windowHeight = window.innerHeight
+                || document.documentElement.clientHeight
+                || document.body.clientHeight;
+            if (ss == true) {
+                change = Number(changeValObj.innerText);
+                if (dirSet == 0) {
+                    if (i >= windowWidth - 175) {
+                        opp = false;
+                    } else if (i <= 175) {
+                        opp = true;
+                        j++;
+                        if (j >= Number(changeSetObj.innerText)) {
+                            ss = false;
+                            j = 0;
+                        }
+
+                    }
+                    obj.style.removeProperty('right');
+                    obj.style.removeProperty('left');
+                    obj.style.removeProperty('top');
+                    obj.style.right = i + "px";
+                    obj.style.top = "200pt";
+
+
+
+                } else if (dirSet == 1) {
+                    if (i >= windowWidth - 100) {
+                        opp = false;
+                    } else if (i <= 50) {
+                        opp = true;
+                        j++;
+                        if (j >= Number(changeSetObj.innerText)) {
+                            ss = false;
+                            j = 0;
+
+                        }
+                    }
+                    obj.style.removeProperty('right');
+                    obj.style.removeProperty('left');
+                    obj.style.removeProperty('top');
+                    obj.style.left = i + "pt";
+                    obj.style.top = i * 0.6 + "pt";
+
+
+
+                } else if (dirSet == 2) {
+                    if (i >= windowHeight - 100) {
+                        opp = false;
+                    } else if (i <= 100) {
+                        opp = true;
+                        j++;
+                        if (j >= Number(changeSetObj.innerText)) {
+                            ss = false;
+                            j = 0;
+
+                        }
+                    }
+                    obj.style.removeProperty('right');
+                    obj.style.removeProperty('left');
+                    obj.style.removeProperty('top');
+                    obj.style.right = i + "pt";
+                    obj.style.top = i * 0.5 + "pt";
+
+
+
+                }
+                if (opp == true) {
+                    i = i + change;
+                } else if (opp == false) {
+                    i = i - change;
+                }
+            }
+
+        }
+        function main() {
+            setInterval(function () { runner(); }, change);
+        }
+        main();
+
+    </script>
+    <style>
+        .inp {
+            background-color: lightgray;
+            color: black;
+            z-index: 2;
+
+        }
+
+        .movingDiv {
+            position: absolute;
+            top: 200pt;
+            border: none;
+            text-align: center;
+            background-color: red;
+            font-weight: bold;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            z-index: 1;
+
+        }
+
+        button {
+            border: none;
+            padding: 0.3%;
+            margin-top: 0.3%;
+            z-index: 3;
+        }
+
+        .github {
+            color: black;
+            position: fixed;
+            bottom: 2px;
+            right:2px;
+
+            font-size: small;
+            float: right;
+        }
+        .gitEl{
+            margin-right: 10px;
+        }
+    </style>
+    <div class="github"> 
+        <a class="gitEl"  target="_blank" href="https://github.com/MaxAFriedrich/EMDR">Github</a>
+        <a  class="gitEl"  target="_blank" href="https://gitreports.com/issue/MaxAFriedrich/EMDR">bug report/feedback</a>
+        <a  class="gitEl"  target="_blank" href="https://github.com/MaxAFriedrich/EMDR/wiki">help</a>
+    </div>
+
+</body>
+
+</html>

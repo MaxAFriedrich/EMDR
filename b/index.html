@@ -8,64 +8,45 @@
 
 <body id="body" class="body" onload="loader()">
     <div id="movingDiv" class="movingDiv"></div>
-    <button class="grey" onclick="showHide()">Show/Hide</button>
-    <button class="grey" onclick="stopStart()">Stop/Start</button>
+    <button onclick="showHide()">Show/Hide</button>
+    <button onclick="stopStart()">Stop/Start</button>
     <div class="inp" id="settings">
-        <div class="set-wraper">
-            <div class="inpItem"><span>Speed:</span><span contenteditable="True"
-                    style="display: inline-block ; width:100px; border: 1px; margin-top:1%;" id="changeVal">2</span>
-            </div>
-            <div class="inpItem"><span>Sets:</span><span contenteditable="True"
-                    style="display: inline-block ; width:100px; border: 1px; margin-top:1%;" id="changeSet">2</span>
-                <button id="setButton" onclick="setSetter()">Manual</button>
-
-            </div>
-            <div class="inpItem"><span>Time (Seconds):</span><span contenteditable="True"
-                    style="display: inline-block ; width:100px; border: 1px; " id="changeTime">30</span>
-                <button id="timeButton" onclick="timeSetter()">Manual</button>
-
-            </div>
-            <span>Color:</span>
-            <button style="background-color: red;" onclick="buttonAction('red');">red</button>
-            <button style="background-color: orange;" onclick="buttonAction('orange');">orange</button>
-            <button style="background-color: lawngreen;" onclick="buttonAction('lawngreen');">green</button>
-            <button style="background-color: aqua;" onclick="buttonAction('aqua');">blue</button>
-            <button style="background-color: blueviolet;" onclick="buttonAction('blueviolet');">purple</button>
-            <button style="background-color: violet;" onclick="buttonAction('violet');">pink</button>
-            <br>
-            <span>Background:</span>
-            <button style="background-color: black; color:whitesmoke;"
-                onclick="buttonBakground('black');">black</button>
-            <button style="background-color: grey; color:black;" onclick="buttonBakground('grey');">grey</button>
-            <button style="background-color: white; color:black;" onclick="buttonBakground('white');">white</button>
-            <br>
-            <span>Size:</span>
-            <button style="background-color: white; color:black;" onclick="ballSize(0);">small</button>
-            <button style="background-color: white; color:black;" onclick="ballSize(1);">medium</button>
-            <button style="background-color: white; color:black;" onclick="ballSize(2);">large</button>
-            <br>
-            <span>Direction:</span>
-            <button style="background-color: white; color:black;" onclick="direction(0);">Horizontal</button>
-            <button style="background-color: white; color:black;" onclick="direction(1);">Diagonal L/R</button>
-            <button style="background-color: white; color:black; margin-bottom: 1%;" onclick="direction(2);">Diagonal
-                R/L</button>
+        <div class="inp"><span>Speed:</span><span contenteditable="True"
+                style="display: inline-block ; width:100px; border: 1px; margin-top:0.3%;" id="changeVal">2</span>
         </div>
-
-        <div class="set-wraper" style="margin-top: 0.3%;">
-            <h3>New Release</h3>
-            <p>This app has been updated with some new features:</p>
-            <ul>
-                <li>Timer</li>
-                <li>Enable/Disable timer and Sets</li>
-                <li>Much improved diagonals</li>
-
-            </ul>
-            <p>You can find more information and how all this works <a href='#'>here</a>.</p>
-            <p>You can <a href='https://gitreports.com/issue/MaxAFriedrich/EMDR'>click here</a> to make a suggestion or
-                report a bug.</p>
-            <p>The old version is available here: <a href='https://emdr.epizy.com/old'>emdr.epizy.com/old</a>.</p>
+        <div class="inp"><span>Sets:</span><span contenteditable="True"
+                style="display: inline-block ; width:100px; border: 1px; margin-top:0.3%;" id="changeSet">2</span>
+            <button id="setButton" onclick="setSetter()">Manual</button>
 
         </div>
+        <div class="inp"><span>Time (Seconds):</span><span contenteditable="True"
+                style="display: inline-block ; width:100px; border: 1px; margin-top:0.3%;" id="changeTime">30</span>
+            <button id="timeButton" onclick="timeSetter()">Manual</button>
+
+        </div>
+        <span>Color:</span>
+        <button style="background-color: red;" onclick="buttonAction('red');">red</button>
+        <button style="background-color: orange;" onclick="buttonAction('orange');">orange</button>
+        <button style="background-color: lawngreen;" onclick="buttonAction('lawngreen');">green</button>
+        <button style="background-color: aqua;" onclick="buttonAction('aqua');">blue</button>
+        <button style="background-color: blueviolet;" onclick="buttonAction('blueviolet');">purple</button>
+        <button style="background-color: violet;" onclick="buttonAction('violet');">pink</button>
+        <br>
+        <span>Background:</span>
+        <button style="background-color: black; color:whitesmoke;" onclick="buttonBakground('black');">black</button>
+        <button style="background-color: grey; color:black;" onclick="buttonBakground('grey');">grey</button>
+        <button style="background-color: white; color:black;" onclick="buttonBakground('white');">white</button>
+        <br>
+        <span>Size:</span>
+        <button style="background-color: white; color:black;" onclick="ballSize(0);">small</button>
+        <button style="background-color: white; color:black;" onclick="ballSize(1);">medium</button>
+        <button style="background-color: white; color:black;" onclick="ballSize(2);">large</button>
+        <br>
+        <span>Direction:</span>
+        <button style="background-color: white; color:black;" onclick="direction(0);">Horizontal</button>
+        <button style="background-color: white; color:black;" onclick="direction(1);">Diagonal L/R</button>
+        <button style="background-color: white; color:black; margin-bottom: 0.3%;" onclick="direction(2);">Diagonal
+            R/L</button>
     </div>
 
     <script>
@@ -106,9 +87,8 @@
 
         // diag angle calculation
         var angleRad = Math.atan(windowHeight / windowWidth);
-        var diagAngle = angleRad;
-        var diagLen = Math.sqrt(windowWidth ** 2 + windowHeight ** 2);
-
+        var diagAngle = angleRad ;
+        var diagLen =  Math.sqrt(windowWidth ** 2 + windowHeight ** 2)*0.7;
 
 
         function loader() {
@@ -180,16 +160,16 @@
                 j = 0;
             }
         }
-        //showHide();
+        showHide();
 
         function stopStart() {
             j = 0;
             if (ss == true) {//stop
                 ss = false;
-                //showHide();
+                showHide();
             } else if (ss == false) {// start
                 ss = true;
-                //showHide();
+                showHide();
                 globTime = parseFloat(new Date().getTime() / 1000);
 
 
@@ -227,7 +207,7 @@
                         j++;
                         if (j >= Number(changeSetObj.innerText)) {
                             ss = false;
-                            //showHide();
+                            showHide();
                             j = 0;
                         }
 
@@ -242,15 +222,14 @@
 
 
                 } else if (dirSet == 1) {
-                    size = obj.offsetWidth + 60;
-                    if (i >= diagLen - size) {
+                    if (i >= diagLen - 50) {
                         opp = false;
-                    } else if (i <= 50) {
+                    } else if (i <= 10) {
                         opp = true;
                         j++;
                         if (j >= Number(changeSetObj.innerText)) {
                             ss = false;
-                            //showHide();
+                            showHide();
 
                             j = 0;
 
@@ -262,38 +241,37 @@
 
                     sined = Math.sin(diagAngle) * i;
                     cosed = Math.cos(diagAngle) * i;
-                    obj.style.left = cosed + "px";
-                    obj.style.top = sined + "px";
+                    obj.style.left = cosed + "pt";
+                    obj.style.top = sined + "pt";
 
 
 
                 } else if (dirSet == 2) {
-                    /*                    if (i >= windowHeight - 100) {
-                                            opp = false;
-                                        } else if (i <= 100) {
-                                            opp = true;
-                                            j++;
-                                            if (j >= Number(changeSetObj.innerText)) {
-                                                ss = false;
-                                                j = 0;
-                    
-                                            }
-                                        }
-                                        obj.style.removeProperty('right');
-                                        obj.style.removeProperty('left');
-                                        obj.style.removeProperty('top');
-                                        obj.style.right = i + "pt";
-                                        obj.style.top = i * 0.5 + "pt";*/
-
-                    size = obj.offsetWidth + 60;
-                    if (i >= diagLen - size) {
+/*                    if (i >= windowHeight - 100) {
                         opp = false;
-                    } else if (i <= 50) {
+                    } else if (i <= 100) {
                         opp = true;
                         j++;
                         if (j >= Number(changeSetObj.innerText)) {
                             ss = false;
-                            //showHide();
+                            j = 0;
+
+                        }
+                    }
+                    obj.style.removeProperty('right');
+                    obj.style.removeProperty('left');
+                    obj.style.removeProperty('top');
+                    obj.style.right = i + "pt";
+                    obj.style.top = i * 0.5 + "pt";*/
+
+                    if (i >= diagLen - 50) {
+                        opp = false;
+                    } else if (i <= 10) {
+                        opp = true;
+                        j++;
+                        if (j >= Number(changeSetObj.innerText)) {
+                            ss = false;
+                            showHide();
 
                             j = 0;
 
@@ -305,8 +283,8 @@
 
                     sined = Math.sin(diagAngle) * i;
                     cosed = Math.cos(diagAngle) * i;
-                    obj.style.right = cosed + "px";
-                    obj.style.top = sined + "px";
+                    obj.style.right = cosed + "pt";
+                    obj.style.top = sined + "pt";
 
 
                 }
@@ -327,36 +305,16 @@
 
     </script>
     <style>
-        .inpItem {
-            background-color: lightgray;
-            color: black;
-            margin-top: 0.3%;
-            margin-bottom: 0.3%;
-        }
-
-        .set-wraper {
-            float: left;
-            background-color: lightgray;
-            color: black;
-            flex: 1;
-            margin-left: 0.3%;
-        }
-
-        .grey {
-            background-color: lightgray;
-        }
-
         .inp {
             background-color: lightgray;
             color: black;
             z-index: 2;
-            margin-top: 10px;
-            display: flex;
 
         }
 
         .movingDiv {
             position: absolute;
+            top: 200pt;
             border: none;
             text-align: center;
             background-color: red;
