@@ -5,7 +5,7 @@ EMDR resources
 
 A working lightbar app that is platform agnostic and simple to use. The
 bilateral stimulation page is available here:
-[emdr.epizy.com](https://emdr.epizy.com/).
+[emdr.epizy.com](https://emdr.epizy.com/) or [emdr.mfriedrich.win](https://emdr.mfriedrich.win).
 
 ## Usage
 
