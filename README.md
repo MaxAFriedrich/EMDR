@@ -5,11 +5,11 @@ EMDR resources
 
 A working lightbar app that is platform agnostic and simple to use. The
 bilateral stimulation page is available here:
-[emdr.epizy.com](https://emdr.epizy.com/) or [emdr.mfriedrich.win](https://emdr.mfriedrich.win).
+[emdr.mfriedrich.win](https://emdr.mfriedrich.win).
 
 ## Usage
 
-*Note: the terms* *websites, application, app, and software* *will be used interchangeably here to describe this EMDR light bar resource.* This app will work on any Internet enabled device using any modern web browser. The clinician can use it by going to the URL [https://emdr.epizy.com](https://emdr.epizy.com/) and then sharing their screen with their client. The new version does not work with Internet Explorer, the old version can still be found here [https://emdr.epizy.com/old](https://emdr.epizy.com/old)). Theoretically, any video-conferencing software will work although, the following have been tested:
+*Note: the terms* *websites, application, app, and software* *will be used interchangeably here to describe this EMDR light bar resource.* This app will work on any Internet enabled device using any modern web browser. The clinician can use it by going to the URL [https://emdr.mfriedrich.win](https://emdr.mfriedrich.win/) and then sharing their screen with their client. The new version does not work with Internet Explorer, the old version can still be found here [https://emdr.mfriedrich.win/old](https://emdr.mfriedrich.win/old)). Theoretically, any video-conferencing software will work although, the following have been tested:
 
 -   Zoom
 
