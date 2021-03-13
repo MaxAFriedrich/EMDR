@@ -273,22 +273,6 @@
 
 
                 } else if (dirSet == 2) {
-                    /*                    if (i >= windowHeight - 100) {
-                                            opp = false;
-                                        } else if (i <= 100) {
-                                            opp = true;
-                                            j++;
-                                            if (j >= Number(changeSetObj.innerText)) {
-                                                ss = false;
-                                                j = 0;
-                    
-                                            }
-                                        }
-                                        obj.style.removeProperty('right');
-                                        obj.style.removeProperty('left');
-                                        obj.style.removeProperty('top');
-                                        obj.style.right = i + "pt";
-                                        obj.style.top = i * 0.5 + "pt";*/
 
                     size = obj.offsetWidth * 2.2;
                     if (i >= diagLen - size) {
@@ -394,6 +378,10 @@
 
         .gitEl {
             margin-right: 10px;
+        }
+
+        body {
+            overflow: hidden;
         }
     </style>
     <div class="github">
