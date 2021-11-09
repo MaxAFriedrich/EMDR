@@ -29,7 +29,7 @@ The settings in the grey box can be changed by clicking on them and they will au
 
 #### Settings
 
-To start the ball click ![outline_play_arrow_black_24dp](readmeImgs\outline_play_arrow_black_24dp.png), to stop the ball click ![outline_stop_black_24dp](readmeImgs\outline_stop_black_24dp.png). You can hide the settings box by clicking ![outline_visibility_off_black_24dp](readmeImgs\outline_visibility_off_black_24dp.png) and  ![outline_visibility_black_24dp](readmeImgs\outline_visibility_black_24dp.png) to show them again.
+To start the ball click ![outline_play_arrow_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_play_arrow_black_24dp.png), to stop the ball click ![outline_stop_black_24dp](readmeImgs\outline_stop_black_24dp.png). You can hide the settings box by clicking ![outline_visibility_off_black_24dp](readmeImgs\outline_visibility_off_black_24dp.png) and  ![outline_visibility_black_24dp](readmeImgs\outline_visibility_black_24dp.png) to show them again.
 
 
 ##### Speed
