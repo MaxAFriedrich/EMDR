@@ -42,10 +42,10 @@ Sets changes the number of times the ball moves before it stops. This value can 
 Timer allows time to be changed to any required length in seconds. 
 
 ##### Colour
-Colour changes the colour of the ball. By clicking one of the coloured dots, the ball will change accordingly. If you want a custom colour, click on the square which open a colour picker, which by default is black, you can then move the sliders to a different colour, when you click off the colour picker, the colour will change.
+Colour changes the colour of the ball. By clicking one of the coloured dots, the ball will change accordingly. If you want a custom colour, click on the square which opens a colour picker, which by default is black. You can then move the sliders to a different colour and when you click off the colour picker, the colour will change.
 
 ##### Background
-Background changes the colour of the background. By clicking one of the coloured dots, the ball will change accordingly. If you want a custom colour, click on the square which open a colour picker, which by default is black, you can then move the sliders to a different colour, when you click off the colour picker, the colour will change.
+Background changes the colour of the background. By clicking one of the coloured dots, the ball will change accordingly. If you want a custom colour, click on the square which opens a colour picker, which by default is black. You can then move the sliders to a different colour and when you click off the colour picker, the colour will change.
 
 ##### Size
 Size changes the size of the ball. Click on one of the different sized dots to change the size of the ball.
@@ -61,9 +61,9 @@ Direction changes the vector on which the ball moves.
 
 ##### Sound
 
-Sound lets you select a type of soundwave (sawtooth, sinewave, triangle or square) and the frequency for that soundwave to play at.  To enable it, click the ![outline_volume_up_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_up_black_24dp.png), and to disable it click ![outline_volume_off_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_off_black_24dp.png).  Sound will only play through the left channel when the ball hits the left endpoint and the right channel when the ball hits the right to endpoint.
+Sound lets you select a type of soundwave (sawtooth, sinewave, triangle or square) and the frequency for that soundwave.  To enable it, click the ![outline_volume_up_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_up_black_24dp.png), and to disable it click ![outline_volume_off_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_off_black_24dp.png).  Sound will only play through the left channel when the ball hits the left endpoint and the right channel when the ball hits the right endpoint.
 
-**Note:** this feature may not work on all devices and in all web browsers, although it seems to work best in Chrome-based browsers.  If it is not working, it can be helpful to click ![outline_volume_up_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_up_black_24dp.png)/![outline_volume_off_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_off_black_24dp.png) a few times.
+**Note:** this feature may not work on some devices and in some web browsers, although it seems to work best in Chrome-based browsers.  If it is not working, it can be helpful to click ![outline_volume_up_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_up_black_24dp.png)/![outline_volume_off_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_off_black_24dp.png) a few times.
 
 
 
