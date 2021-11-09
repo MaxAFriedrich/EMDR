@@ -41,21 +41,26 @@
         <div class="inpWrapper">
 
           <div class="inpItem">
-            <span>Speed:</span><span contenteditable="True" class="inptSpan" id="changeVal">2</span>
+            <div class="label">Speed</div>
+            <div contenteditable="True" class="inptDiv" id="changeVal">2</div>
           </div>
 
           <div class="inpItem">
-            <span>Sets:</span><span contenteditable="True" class="inptSpan" id="changeSet">2</span>
-            <button id="setButton" onclick="setSetter()">Manual</button>
+            <div class="label" style="display: flex; align-items: center;">Sets<button id="setButton" onclick="setSetter()" style="margin: 0;">Manual</button>
+            </div>
+
+            <div contenteditable="True" class="inptDiv" id="changeSet">2</div>
           </div>
 
           <div class="inpItem">
-            <span>Time (Seconds):</span><span contenteditable="True" class="inptSpan" id="changeTime">30</span>
-            <button id="timeButton" onclick="timeSetter()">Manual</button>
+            <div class="label" style="display: flex; align-items: center;">Time (Seconds)<button id="timeButton" onclick="timeSetter()" style="margin: 0;">Manual</button>
+            </div>
+            <div contenteditable="True" class="inptDiv" id="changeTime">30</div>
+
           </div>
 
           <div class="inpItem">
-            <span>Color:</span>
+            <div class="label">Color</div>
             <button class="colorBall" style="background-color: red;" onclick="buttonAction('red');"></button>
             <button class="colorBall" style="background-color: orange;" onclick="buttonAction('orange');"></button>
             <button class="colorBall" style="background-color: lawngreen;" onclick="buttonAction('lawngreen');"></button>
@@ -63,24 +68,26 @@
             <button class="colorBall" style="background-color: aqua;" onclick="buttonAction('aqua');"></button>
             <button class="colorBall" style="background-color: blueviolet;" onclick="buttonAction('blueviolet');"></button>
             <button class="colorBall" style="background-color: violet;" onclick="buttonAction('violet');"></button>
+            <input type="color" class="" id="colorPal" value="" onchange="buttonAction(document.getElementById('colorPal').value);">
           </div>
 
           <div class="inpItem">
-            <span>Background:</span>
+            <div class="label">Background</div>
             <button class="colorBall" style="background-color: black;" onclick="buttonBakground('black');"></button>
             <button class="colorBall" style="background-color: grey;" onclick="buttonBakground('grey');"></button>
             <button class="colorBall" style="background-color: white;" onclick="buttonBakground('white');"></button>
+            <input type="color" class="" id="backgroundPal" value="" onchange="buttonBakground(document.getElementById('backgroundPal').value);">
           </div>
 
           <div class="inpItem">
-            <span>Size:</span>
-            <button class="sizeBall" style="width:1rem; height:1rem;;" onclick="ballSize(0);"></button>
-            <button class="sizeBall" style="width:2rem; height:2rem;;" onclick="ballSize(1);"></button>
-            <button class="sizeBall" style="width:3rem; height:3rem;;" onclick="ballSize(2);"></button>
+            <div class="label">Size</div>
+            <button class="sizeBall" style="width:1rem; height:1rem;" onclick="ballSize(0);"></button>
+            <button class="sizeBall" style="width:2rem; height:2rem;" onclick="ballSize(1);"></button>
+            <button class="sizeBall" style="width:3rem; height:3rem;" onclick="ballSize(2);"></button>
           </div>
 
           <div class="inpItem">
-            <span>Direction:</span>
+            <div class="label">Direction</div>
             <button onclick="direction(0);">
               <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewbox="0 0 24 24" width="24px" fill="#000000">
                 <rect fill="none" height="24" width="24"/>
@@ -97,19 +104,14 @@
                 <path d="M15,19v-2H8.41L20,5.41L18.59,4L7,15.59V9H5v10H15z"/></svg>
             </button>
           </div>
-        </div>
-
-        <div class="infoDiv">
-          <p>You can find more information and how all this works
-            <a href='https://github.com/MaxAFriedrich/EMDR/wiki'>here</a>.
-          </p>
-          <p>You can
-            <a href='https://gitreports.com/issue/MaxAFriedrich/EMDR'>click here</a>
-            to make a suggestion or report a bug.
-          </p>
-          <p>You can find the github repository
-            <a class="gitEl" target="_blank" href="https://github.com/MaxAFriedrich/EMDR">here</a>.
-          </p>
+          <div class="inpItem helpItem">
+            <p>You can find more information and how all this works
+              <a target="_blank" href='https://github.com/MaxAFriedrich/EMDR/wiki'>here</a>. You can
+              <a target="_blank" href='https://gitreports.com/issue/MaxAFriedrich/EMDR'>click here</a>
+              to make a suggestion or report a bug. You can find the github repository
+              <a class="gitEl" target="_blank" href="https://github.com/MaxAFriedrich/EMDR">here</a>.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -153,13 +155,13 @@
 
       function loader() {
         timeSetObj.style.display = "none";
-        timeSetObj.style.display = "inline";
+        timeSetObj.style.display = "block";
         document
           .getElementById("timeButton")
           .innerHTML = manualSVG;
 
         changeSetObj.style.display = "none";
-        changeSetObj.style.display = "inline";
+        changeSetObj.style.display = "block";
         document
           .getElementById("setButton")
           .innerHTML = manualSVG;
@@ -168,7 +170,7 @@
       function timeSetter() {
         timeDisp = !timeDisp;
         if (timeDisp == true) { //Manual
-          timeSetObj.style.display = "inline";
+          timeSetObj.style.display = "block";
           timeSetObj.innerText = "30";
           document
             .getElementById("timeButton")
@@ -186,7 +188,7 @@
       function setSetter() {
         setsDisp = !setsDisp;
         if (setsDisp == true) { //Manual
-          changeSetObj.style.display = "inline";
+          changeSetObj.style.display = "block";
           changeSetObj.innerText = "2";
           document
             .getElementById("setButton")
@@ -259,7 +261,7 @@
             .getElementById("play")
             .style
             .display = "block";
-            
+
         } else if (ss == false) { // start
           ss = true;
           globTime = parseFloat(new Date().getTime() / 1000);
@@ -419,11 +421,12 @@
         overflow: hidden;
         font-family: 'Roboto', sans-serif;
         margin: 0;
+        color: dimgray;
       }
 
       a {
         text-decoration: none;
-        color: grey;
+        color: black;
       }
 
       button {
@@ -448,8 +451,27 @@
 
       .colorBall {
         border-radius: 50%;
-        width: 1rem;
-        height: 1rem;
+        width: 2rem;
+        height: 2rem;
+      }
+
+      input[type="color"] {
+        -webkit-appearance: none;
+        width: 2rem;
+        height: 2rem;
+      }
+
+      input[type="color"]::-webkit-color-swatch-wrapper {
+        padding: 0;
+      }
+
+      input[type="color"]::-webkit-color-swatch {
+        border: none;
+      }
+
+      input[type="color" i]{
+        background: none;
+        border:none;
       }
 
       .sizeBall {
@@ -457,6 +479,46 @@
         border-radius: 50%;
       }
 
+      .inpWrapper {
+        background-color: gainsboro;
+        margin: 0.5rem;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+
+      .inpItem {
+        background-color: rgb(196, 196, 196);
+        margin: 0.3rem;
+        border-radius: 0.3rem;
+        padding: 0.3rem;
+        flex: 1 0 auto;
+        height: 4.5rem;
+      }
+
+      .helpItem {
+        flex: 5 0 95%;
+        height: auto;
+      }
+
+      .inptDiv {
+        display: block;
+        width: 95%;
+        margin: 0.3rem;
+        color: black;
+        outline: none;
+      }
+
+      #setButton svg {
+        height: 1em;
+      }
+
+      #timeButton svg {
+        height: 1em;
+      }
       /* .inpItem {
         background-color: inherit;
         color: black;
