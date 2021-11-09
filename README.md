@@ -29,7 +29,7 @@ The settings in the grey box can be changed by clicking on them and they will au
 
 #### Settings
 
-To start the ball click ![outline_play_arrow_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_play_arrow_black_24dp.png), to stop the ball click ![outline_stop_black_24dp](readmeImgs\outline_stop_black_24dp.png). You can hide the settings box by clicking ![outline_visibility_off_black_24dp](readmeImgs\outline_visibility_off_black_24dp.png) and  ![outline_visibility_black_24dp](readmeImgs\outline_visibility_black_24dp.png) to show them again.
+To start the ball click ![outline_play_arrow_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_play_arrow_black_24dp.png), to stop the ball click ![outline_stop_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_stop_black_24dp.png). You can hide the settings box by clicking ![outline_visibility_off_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_visibility_off_black_24dp.png) and  ![outline_visibility_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_visibility_black_24dp.png) to show them again.
 
 
 ##### Speed
@@ -53,24 +53,24 @@ Size changes the size of the ball. Click on one of the different sized dots to c
 ##### Direction
 Direction changes the vector on which the ball moves.
 
-- ![outline_west_black_24dp](readmeImgs\outline_west_black_24dp.png) sets the ball to move horizontally.
+- ![outline_west_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_west_black_24dp.png) sets the ball to move horizontally.
 
-- ![outline_south_east_black_24dp](readmeImgs\outline_south_east_black_24dp.png) sets the ball to move from the top left to bottom right.
+- ![outline_south_east_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_south_east_black_24dp.png) sets the ball to move from the top left to bottom right.
 
-- ![outline_south_west_black_24dp](readmeImgs\outline_south_west_black_24dp.png) sets the ball to move from the top right to bottom left.
+- ![outline_south_west_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_south_west_black_24dp.png) sets the ball to move from the top right to bottom left.
 
 ##### Sound
 
-Sound lets you select a type of soundwave (sawtooth, sinewave, triangle or square) and the frequency for that soundwave to play at.  To enable it, click the ![outline_volume_up_black_24dp](readmeImgs\outline_volume_up_black_24dp.png), and to disable it click ![outline_volume_off_black_24dp](readmeImgs\outline_volume_off_black_24dp.png).  Sound will only play through the left channel when the ball hits the left endpoint and the right channel when the ball hits the right to endpoint.
+Sound lets you select a type of soundwave (sawtooth, sinewave, triangle or square) and the frequency for that soundwave to play at.  To enable it, click the ![outline_volume_up_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_up_black_24dp.png), and to disable it click ![outline_volume_off_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_off_black_24dp.png).  Sound will only play through the left channel when the ball hits the left endpoint and the right channel when the ball hits the right to endpoint.
 
-**Note:** this feature may not work on all devices and in all web browsers, although it seems to work best in Chrome-based browsers.  If it is not working, it can be helpful to click ![outline_volume_up_black_24dp](readmeImgs\outline_volume_up_black_24dp.png)/![outline_volume_off_black_24dp](readmeImgs\outline_volume_off_black_24dp.png) a few times.
+**Note:** this feature may not work on all devices and in all web browsers, although it seems to work best in Chrome-based browsers.  If it is not working, it can be helpful to click ![outline_volume_up_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_up_black_24dp.png)/![outline_volume_off_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_volume_off_black_24dp.png) a few times.
 
 
 
 
 ##### Infinity/Manual button
 
-*PLEASE NOTE there is a new Infinity* setting in the Sets and Timer functions, which means that when both Sets and Timer are in the Infinity mode, the ball will keep moving at the speed you chose until you press the start/press button. You can select the infinity mode for each setting by clicking ![outline_all_inclusive_black_24dp](readmeImgs\outline_all_inclusive_black_24dp.png), and to edit the setting manually you can click ![outline_edit_black_24dp](readmeImgs\outline_edit_black_24dp.png).
+*PLEASE NOTE there is a new Infinity* setting in the Sets and Timer functions, which means that when both Sets and Timer are in the Infinity mode, the ball will keep moving at the speed you chose until you press the start/press button. You can select the infinity mode for each setting by clicking ![outline_all_inclusive_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_all_inclusive_black_24dp.png), and to edit the setting manually you can click ![outline_edit_black_24dp](https://raw.githubusercontent.com/MaxAFriedrich/EMDR/main/readmeImgs/outline_edit_black_24dp.png).
 
 ### Using Screen Share
 
