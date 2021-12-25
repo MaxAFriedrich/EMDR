@@ -230,7 +230,7 @@ function beep(panVal) {
 
 // Run when the program first loads
 window.onload = function() {
-    //?WTF is this?
+    //TODO move the SVG setup by using jquery
     timeSetObj.style.display = "block";
     document
         .getElementById("timeButton")
@@ -244,7 +244,6 @@ window.onload = function() {
     document
         .getElementById("soundButton")
         .innerHTML = soundOnSVG;
-    // ?----------------------
 
     let diagAngle = Math.atan(windowHeight / windowWidth);
     let diagLen = Math.sqrt(windowWidth ** 2 + windowHeight ** 2);
