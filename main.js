@@ -26,7 +26,7 @@ function beep(panVal) {
 
     //set manipulations and stuff to make to sound wave
     panNode.pan.value = panVal;
-    oscillator.frequency.value = $("#fIn").text();
+    oscillator.frequency.value = $("#fIn").val();
     oscillator.type = $("#tIn").val();
 
     // add in the bits to the audio
@@ -35,7 +35,7 @@ function beep(panVal) {
 
     // make it work
     oscillator.start();
-    let num = 1000 - (Number($("#changeVal").text()) * 300);
+    let num = 1000 - (Number($("#changeVal").val()) * 300);
     if (num <= 40) {
         num = 100;
     }
@@ -88,7 +88,7 @@ function uiBuilder() {
     const inpWrapper = document.createElement("div");
     //speed
     inpWrapper.className = "inpWrapper";
-    $(inpWrapper).append("<div class='inpItem'><div class='label'>Speed</div><div contenteditable='True' class='inptDiv' id='changeVal'>2</div></div>");
+    $(inpWrapper).append("<div class='inpItem'><div class='label'>Speed</div><input type='number' patern='\d*' id='changeVal' value='2'></div>");
     //sets
     const setDiv = document.createElement("div");
     setDiv.className = "inpItem";
@@ -104,16 +104,16 @@ function uiBuilder() {
         $("#changeSet").toggle();
         $("#manualSet").toggle();
         $("#autoSet").toggle();
-        if ($("#changeSet").text() == "10000000000000000000000000000000000000000000000") { //Manual
-            $("#changeSet").text("2");
+        if ($("#changeSet").val() == "10000000000000000000000000000000000000000000000") { //Manual
+            $("#changeSet").val("2");
 
         } else { // Auto
-            $("#changeSet").text("10000000000000000000000000000000000000000000000");
+            $("#changeSet").val("10000000000000000000000000000000000000000000000");
         }
     });
     $(setToggle).append(setButton);
     $(setDiv).append(setToggle);
-    $(setDiv).append("<div contenteditable='True' class='inptDiv' id='changeSet'>2</div>");
+    $(setDiv).append("<input type='number' patern='\d*' id='changeSet' value='2'>");
     $(inpWrapper).append(setDiv);
     //time
     const timeDiv = document.createElement("div");
@@ -130,16 +130,16 @@ function uiBuilder() {
         $("#changeTime").toggle();
         $("#manualTime").toggle();
         $("#autoTime").toggle();
-        if ($("#changeTime").text() == "10000000000000000000000000000000000000000000000") { //Manual
-            $("#changeTime").text("30");
+        if ($("#changeTime").val() == "10000000000000000000000000000000000000000000000") { //Manual
+            $("#changeTime").val("30");
 
         } else { // Auto
-            $("#changeTime").text("10000000000000000000000000000000000000000000000");
+            $("#changeTime").val("10000000000000000000000000000000000000000000000");
         }
     });
     $(timeToggle).append(timeButton);
     $(timeDiv).append(timeToggle);
-    $(timeDiv).append("<div contenteditable='True' class='inptDiv' id='changeTime'>30</div>");
+    $(timeDiv).append("<input type='number' patern='\d*' id='changeTime' value='30'>");
     $(inpWrapper).append(timeDiv);
     //ball color
     const ballColorDiv = document.createElement("div");
@@ -205,8 +205,8 @@ function uiBuilder() {
 
 
     const ballSizes = [
-        ["1em", "75px"],
-        ["2em", "100px"],
+        ["2em", "75px"],
+        ["2.5em", "100px"],
         ["3em", "175px"]
     ];
     ballSizes.forEach(function (size) {
@@ -221,7 +221,7 @@ function uiBuilder() {
         $(ballSizeDiv).append(temp);
     });
     const ballSizeInput = document.createElement("input");
-    ballSizeInput.type = "text";
+    ballSizeInput.type = "number";
     ballSizeInput.id = "customBallSize";
     ballSizeInput.placeholder = "300";
     ballSizeInput.addEventListener("input", () => {
@@ -272,13 +272,12 @@ function uiBuilder() {
     });
     $(soundToggle).append(soundButton);
     $(soundDiv).append(soundToggle);
-    $(soundDiv).append("<div style='display:none;' id='soundSettings'>Freq <div style='display:inline-block; width:60%;' contenteditable='True' class='inptDiv' id='fIn'>500 </div><br>Type <select id='tIn'><option value='sine'>sine</option><option value='square'>square</option><option value='sawtooth'>sawtooth</option><option value='triangle'>triangle</option></select></div>");
+    $(soundDiv).append("<div style='display:none;' id='soundSettings'>Freq <input type='number' patern='\d*' id='fIn' value='500'><br>Type <select id='tIn'><option value='sine'>sine</option><option value='square'>square</option><option value='sawtooth'>sawtooth</option><option value='triangle'>triangle</option></select></div>");
     $(inpWrapper).append(soundDiv);
 
 
     // info
     $(inpWrapper).append(" <div class='inpItem helpItem'><p>You can find more information and how all this works <a target='_blank' href='https://github.com/MaxAFriedrich/EMDR/wiki'>here</a>. You can <a target='_blank' href='https://gitreports.com/issue/MaxAFriedrich/EMDR'>click here</a> to make a suggestion or report a bug. You can find the github repository <a class='gitEl' target='_blank' href='https://github.com/MaxAFriedrich/EMDR'>here</a>. </p></div>");
-
 
 
     //wrapper appends
@@ -326,10 +325,10 @@ window.onload = function () {
     let oppositeDirection = false;
     setInterval(function () {
         // get the time limit
-        let settime = parseInt($("#changeTime").text()) + globTime;
+        let settime = parseInt($("#changeTime").val()) + globTime;
         //check if play clicked, sets and time are correct
-        if ($("#stop").is(":visible") && Number($("#changeSet").text()) > setCounter && settime >= parseFloat(new Date().getTime() / 1000)) {
-            stepChange = Number($("#changeVal").text());
+        if ($("#stop").is(":visible") && Number($("#changeSet").val()) > setCounter && settime >= parseFloat(new Date().getTime() / 1000)) {
+            stepChange = Number($("#changeVal").val());
             let maxPosition;
             // check if diagonals are selected and set max space limit
             if (dirSet != 0) {

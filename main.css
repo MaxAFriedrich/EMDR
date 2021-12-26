@@ -61,14 +61,16 @@ input[type="color"i] {
     border: none;
 }
 
-input[type="text"] {
-    width: 5ch;
+input[type="number"] {
+    width: 10ch;
     margin: 0.3rem;
     color: black;
     outline: none;
     white-space: nowrap;
     border: none;
     background-color: rgb(196, 196, 196);
+    font-family: inherit;
+    font-size: inherit;
 }
 
 .sizeBall {
@@ -142,6 +144,6 @@ input[type="text"] {
     margin: 0.5rem;
     border-radius: 0.5rem;
     padding: 0.5rem;
-    width: 5rem;
-    height: 30px;
+    width: fit-content;
+    height: fit-content;
 }
