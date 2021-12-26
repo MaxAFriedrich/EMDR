@@ -316,8 +316,8 @@ async function rightToLeft() {
     sined = Math.sin(diagAngle) * ballPosition;
     cosed = Math.cos(diagAngle) * ballPosition;
     $("#movingDiv").css("left", "");
-    $("#movingDiv").css("top", (cosed + "px"));
-    $("#movingDiv").css("right", (sined + "px"));
+    $("#movingDiv").css("top", (sined + "px"));
+    $("#movingDiv").css("right", ( cosed+ "px"));
 }
 
 // Run when the program first loads
@@ -333,7 +333,8 @@ window.onload = function () {
             let maxPosition;
             // check if diagonals are selected and set max space limit
             if (dirSet != 0) {
-                maxPosition = Math.hypot(($(window).width() - $("#movingDiv").width()), ($(window).height() - $("#movingDiv").width()));
+                let bigBall = $("#movingDiv").width()*2
+                maxPosition = Math.hypot(($(window).width() -bigBall), ($(window).height() - bigBall));
             }
             else {
                 maxPosition = $(window).width() - $("#movingDiv").width();
