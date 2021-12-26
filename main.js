@@ -1,33 +1,11 @@
-//TODO move them so they can dynamically change
-let windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-
-let windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-//TODO close the scope and use jquery
-//// let obj = document.getElementById("movingDiv");
-//// let changeValObj = document.getElementById("changeVal");
-//// let changeSetObj = document.getElementById("changeSet");
-//// let timeSetObj = document.getElementById("changeTime");
-//// let soundSettingsObj = document.getElementById("soundSettings");
-//// let colValObj = document.getElementById("colVal");
-//// let backValObj = document.getElementById("backVal");
-//// let body = document.getElementById("body");
-
 //TODO Makes these into a JSON or ENUM
 let dirSet = 0;
 let reversedDirection;
 let stepChange = 2;
 let globTime = parseFloat(new Date().getTime() / 1000);
-let ballPosition = parseInt(windowWidth / (windowWidth / 100)); //
-
-
-
-
-//TODO make this a sleeker solution
+let ballPosition = parseInt($(window).width() / ($(window).width() / 100)); //
 let setCounter = 0;
-
-
-// Good-ish code
+let firstFailure = true;
 
 
 /**
@@ -36,13 +14,12 @@ let setCounter = 0;
  * @returns None
  */
 function beep(panVal) {
-    // create the audio context
-    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
     // audio disabled?
-    if ($("#soundSettings").is(":visible")) {
+    if ($("#soundSettings").is(":hidden")) {
         return;
     }
+    // create the audio context
+    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     // create the things ballPossition am using to manipulate the beeps
     let oscillator = audioCtx.createOscillator();
     let panNode = audioCtx.createStereoPanner();
@@ -50,7 +27,7 @@ function beep(panVal) {
     //set manipulations and stuff to make to sound wave
     panNode.pan.value = panVal;
     oscillator.frequency.value = $("#fIn").text();
-    oscillator.type = $("#tIn").text();
+    oscillator.type = $("#tIn").val();
 
     // add in the bits to the audio
     oscillator.connect(panNode);
@@ -58,7 +35,7 @@ function beep(panVal) {
 
     // make it work
     oscillator.start();
-    let num = 1000 - (Number(changeValObj.innerText) * 300);
+    let num = 1000 - (Number($("#changeVal").text()) * 300);
     if (num <= 40) {
         num = 100;
     }
@@ -67,6 +44,9 @@ function beep(panVal) {
     }, num);
 };
 
+/**
+ * Builds the ui on load
+ */
 function uiBuilder() {
     // Add movingDiv
     $("body").append("<div id='movingDiv'></div>");
@@ -98,6 +78,7 @@ function uiBuilder() {
         globTime = parseFloat(new Date().getTime() / 1000);
         $("#stop").toggle();
         $("#play").toggle();
+        firstFailure = !firstFailure;
 
     });
     $(mainSettingsWrapper).append(stopStartButton);
@@ -123,6 +104,12 @@ function uiBuilder() {
         $("#changeSet").toggle();
         $("#manualSet").toggle();
         $("#autoSet").toggle();
+        if ($("#changeSet").text() == "10000000000000000000000000000000000000000000000") { //Manual
+            $("#changeSet").text("2");
+
+        } else { // Auto
+            $("#changeSet").text("10000000000000000000000000000000000000000000000");
+        }
     });
     $(setToggle).append(setButton);
     $(setDiv).append(setToggle);
@@ -302,137 +289,70 @@ function uiBuilder() {
     $("body").append(uiWrapper);
 }
 
+async function horizontalDirection() {
+    $("#movingDiv").css("right", (ballPosition + "px"));
+    $("#movingDiv").css("top", (($(window).height() / 2) + "px"));
+    $("#movingDiv").css("left", "");
+}
+async function leftToRight() {
+    let diagAngle = Math.atan($(window).height() / $(window).width());
+    sined = Math.sin(diagAngle) * ballPosition;
+    cosed = Math.cos(diagAngle) * ballPosition;
+    $("#movingDiv").css("right", "");
+    $("#movingDiv").css("top", (sined + "px"));
+    $("#movingDiv").css("left", (cosed + "px"));
+}
+async function rightToLeft() {
+    let diagAngle = Math.atan($(window).height() / $(window).width());
+    sined = Math.sin(diagAngle) * ballPosition;
+    cosed = Math.cos(diagAngle) * ballPosition;
+    $("#movingDiv").css("left", "");
+    $("#movingDiv").css("top", (cosed + "px"));
+    $("#movingDiv").css("right", (sined + "px"));
+}
+
 // Run when the program first loads
 window.onload = function () {
     uiBuilder();
-    return;
-    //TODO move the SVG setup by using jquery
-    // // timeSetObj.style.display = "block";
-    // // document
-    // //     .getElementById("timeButton")
-    // //     .innerHTML = manualSVG;
-    // //
-    // // changeSetObj.style.display = "block";
-    // // document
-    // //     .getElementById("setButton")
-    // //     .innerHTML = manualSVG;
-    // // soundSettingsObj.style.display = "none";
-    // // document
-    // //     .getElementById("soundButton")
-    // //     .innerHTML = soundOnSVG;
-
-    let diagAngle = Math.atan(windowHeight / windowWidth);
-    let diagLen = Math.sqrt(windowWidth ** 2 + windowHeight ** 2);
+    // run()
+    let oppositeDirection = false;
     setInterval(function () {
-        let inptTime = parseInt(timeSetObj.innerText);
-        let settime = inptTime + globTime;
-        // diag angle calculation
-        if (ss == true && settime >= parseFloat(new Date().getTime() / 1000)) {
-            stepChange = Number(changeValObj.innerText);
+        let settime = parseInt($("#changeTime").text()) + globTime;
+        if ($("#stop").is(":visible") && Number($("#changeSet").text()) > setCounter && settime >= parseFloat(new Date().getTime() / 1000)) {
+            stepChange = Number($("#changeVal").text());
+            let maxPosition;
+            if (dirSet != 0) {
+                maxPosition = Math.hypot(($(window).width() - $("#movingDiv").width()), ($(window).height() - $("#movingDiv").width()));
+            }
+            else {
+                maxPosition = $(window).width() - $("#movingDiv").width();
+            }
+            if (ballPosition >= maxPosition && !oppositeDirection) {
+                oppositeDirection = true;
+                setCounter++;
+                beep(-1);
+            }
+            else if (ballPosition <= 0 && oppositeDirection) {
+                oppositeDirection = false;
+                beep(1);
+            }
+            if (oppositeDirection) {
+                ballPosition -= stepChange;
+            } else {
+                ballPosition += stepChange;
+            }
             if (dirSet == 0) {
-                let r = parseInt(windowWidth / (windowWidth / 100));
-                if (ballPosition >= windowWidth - r) {
-                    reversedDirection = false;
-                    beep(-1);
-                } else if (ballPosition <= r) {
-                    beep(1);
-                    reversedDirection = true;
-                    setCounter++;
-                    if (setCounter >= Number($("#changeSet").text()) && $("#manualSet").is(":visible")) {
-                        ss = false;
-                        setCounter = 0;
-                    }
-
-                }
-                obj
-                    .style
-                    .removeProperty('right');
-                obj
-                    .style
-                    .removeProperty('left');
-                obj
-                    .style
-                    .removeProperty('top');
-                obj.style.right = ballPosition + "px";
-                t = windowHeight / 2;
-                obj.style.top = t + "px";
-
+                horizontalDirection();
             } else if (dirSet == 1) {
-                size = obj.offsetWidth * 2.2;
-                if (ballPosition >= diagLen - size) {
-                    reversedDirection = false;
-                    beep(-1);
-                } else if (ballPosition <= 50) {
-                    reversedDirection = true;
-                    setCounter++;
-                    beep(1);
-                    if (setCounter >= Number($("#changeSet").text()) && $("#manualSet").is(":visible")) {
-                        ss = false;
-                        setCounter = 0;
-
-                    }
-                }
-                obj
-                    .style
-                    .removeProperty('right');
-                obj
-                    .style
-                    .removeProperty('left');
-                obj
-                    .style
-                    .removeProperty('top');
-
-                sined = Math.sin(diagAngle) * ballPosition;
-                cosed = Math.cos(diagAngle) * ballPosition;
-                obj.style.left = cosed + "px";
-                obj.style.top = sined + "px";
-
+                leftToRight();
             } else if (dirSet == 2) {
-
-                size = obj.offsetWidth * 2.2;
-                if (ballPosition >= diagLen - size) {
-                    reversedDirection = false;
-                    beep(-1);
-                } else if (ballPosition <= 50) {
-                    reversedDirection = true;
-                    setCounter++;
-                    beep(1);
-                    if (setCounter >= Number($("#changeSet").text()) && $("#manualSet").is(":visible")) {
-                        ss = false;
-                        setCounter = 0;
-
-                    }
-                }
-                obj
-                    .style
-                    .removeProperty('right');
-                obj
-                    .style
-                    .removeProperty('left');
-                obj
-                    .style
-                    .removeProperty('top');
-
-                sined = Math.sin(diagAngle) * ballPosition;
-                cosed = Math.cos(diagAngle) * ballPosition;
-                obj.style.right = cosed + "px";
-                obj.style.top = sined + "px";
-
+                rightToLeft();
             }
-            if (reversedDirection == true) {
-                ballPosition = ballPosition + stepChange;
-            } else if (reversedDirection == false) {
-                ballPosition = ballPosition - stepChange;
-            }
-        } else {
-            document
-                .getElementById("stop")
-                .style
-                .display = "none";
-            document
-                .getElementById("play")
-                .style
-                .display = "block";
+
+        } else if (firstFailure) {
+            $("#stop").toggle();
+            $("#play").toggle();
+            firstFailure = false;
         }
     }, stepChange);
 };
