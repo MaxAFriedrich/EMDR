@@ -289,11 +289,17 @@ function uiBuilder() {
     $("body").append(uiWrapper);
 }
 
+/**
+ * moves the ball horizontally; dirSet=0
+ */
 async function horizontalDirection() {
     $("#movingDiv").css("right", (ballPosition + "px"));
     $("#movingDiv").css("top", (($(window).height() / 2) + "px"));
     $("#movingDiv").css("left", "");
 }
+/**
+ * moves the ball diagonally from left to right; dirSet=1
+ */
 async function leftToRight() {
     let diagAngle = Math.atan($(window).height() / $(window).width());
     sined = Math.sin(diagAngle) * ballPosition;
@@ -302,6 +308,9 @@ async function leftToRight() {
     $("#movingDiv").css("top", (sined + "px"));
     $("#movingDiv").css("left", (cosed + "px"));
 }
+/**
+ * moves the ball diagonally from right to left; dirSet=2
+ */
 async function rightToLeft() {
     let diagAngle = Math.atan($(window).height() / $(window).width());
     sined = Math.sin(diagAngle) * ballPosition;
@@ -314,19 +323,22 @@ async function rightToLeft() {
 // Run when the program first loads
 window.onload = function () {
     uiBuilder();
-    // run()
     let oppositeDirection = false;
     setInterval(function () {
+        // get the time limit
         let settime = parseInt($("#changeTime").text()) + globTime;
+        //check if play clicked, sets and time are correct
         if ($("#stop").is(":visible") && Number($("#changeSet").text()) > setCounter && settime >= parseFloat(new Date().getTime() / 1000)) {
             stepChange = Number($("#changeVal").text());
             let maxPosition;
+            // check if diagonals are selected and set max space limit
             if (dirSet != 0) {
                 maxPosition = Math.hypot(($(window).width() - $("#movingDiv").width()), ($(window).height() - $("#movingDiv").width()));
             }
             else {
                 maxPosition = $(window).width() - $("#movingDiv").width();
             }
+            // check if ball reached limits
             if (ballPosition >= maxPosition && !oppositeDirection) {
                 oppositeDirection = true;
                 setCounter++;
@@ -336,11 +348,13 @@ window.onload = function () {
                 oppositeDirection = false;
                 beep(1);
             }
+            //check which direction and change position values
             if (oppositeDirection) {
                 ballPosition -= stepChange;
             } else {
                 ballPosition += stepChange;
             }
+            // move to new positions
             if (dirSet == 0) {
                 horizontalDirection();
             } else if (dirSet == 1) {
