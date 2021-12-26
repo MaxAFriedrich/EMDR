@@ -317,7 +317,7 @@ async function rightToLeft() {
     cosed = Math.cos(diagAngle) * ballPosition;
     $("#movingDiv").css("left", "");
     $("#movingDiv").css("top", (sined + "px"));
-    $("#movingDiv").css("right", ( cosed+ "px"));
+    $("#movingDiv").css("right", (cosed + "px"));
 }
 
 // Run when the program first loads
@@ -333,8 +333,8 @@ window.onload = function () {
             let maxPosition;
             // check if diagonals are selected and set max space limit
             if (dirSet != 0) {
-                let bigBall = $("#movingDiv").width()*2
-                maxPosition = Math.hypot(($(window).width() -bigBall), ($(window).height() - bigBall));
+                let bigBall = $("#movingDiv").width() * 2;
+                maxPosition = Math.hypot(($(window).width() - bigBall), ($(window).height() - bigBall));
             }
             else {
                 maxPosition = $(window).width() - $("#movingDiv").width();
@@ -343,11 +343,23 @@ window.onload = function () {
             if (ballPosition >= maxPosition && !oppositeDirection) {
                 oppositeDirection = true;
                 setCounter++;
-                beep(-1);
+                //fix for mixed up sound on dirset=1
+                if (dirSet == 1) {
+                    beep(1);
+                }
+                else {
+                    beep(-1);
+                }
             }
             else if (ballPosition <= 0 && oppositeDirection) {
                 oppositeDirection = false;
-                beep(1);
+                //fix for mixed up sound on dirset=1
+                if (dirSet == 1) {
+                    beep(-1);
+                }
+                else {
+                    beep(1);
+                }
             }
             //check which direction and change position values
             if (oppositeDirection) {
