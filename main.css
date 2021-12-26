@@ -38,6 +38,7 @@ button {
     width: 2rem;
     height: 2rem;
     padding: 0.3rem;
+    margin-right: 0.6ex;
 }
 
 input[type="color"] {
@@ -60,9 +61,20 @@ input[type="color"i] {
     border: none;
 }
 
+input[type="text"] {
+    width: 5ch;
+    margin: 0.3rem;
+    color: black;
+    outline: none;
+    white-space: nowrap;
+    border: none;
+    background-color: rgb(196, 196, 196);
+}
+
 .sizeBall {
     background-color: black;
     border-radius: 50%;
+    margin-right: 0.6ex;
 }
 
 .inpWrapper {
@@ -131,5 +143,5 @@ input[type="color"i] {
     border-radius: 0.5rem;
     padding: 0.5rem;
     width: 5rem;
-    ;
+    height: 30px;
 }
