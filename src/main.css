@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
-    overflow: hidden;
+    overflow: auto;
     font-family: 'Roboto', sans-serif;
     margin: 0;
     color: dimgray;
