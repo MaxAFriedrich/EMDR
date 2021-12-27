@@ -1,5 +1,20 @@
+/* eslint-disable no-undef */
 module.exports = function (grunt) {
     grunt.initConfig({
+        'npm-command': {
+            lint: {
+                options: {
+                    cwd: 'run',
+                    args: ['lint']
+                },
+                build: {
+                    options: {
+                        cwd: 'run',
+                        args: ['build']
+                    }
+                }
+            }
+        },
         inline: {
             dist: {
                 options: {
@@ -11,7 +26,7 @@ module.exports = function (grunt) {
         },
         uglify: {
             build: {
-                src: 'src/main.js',
+                src: 'srcjs/main.js',
                 dest: 'dist/main.js'
             }
         },
@@ -41,5 +56,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-inline');
 
-    grunt.registerTask('default', ['uglify', 'htmlmin', 'copy', 'inline']);
+    grunt.registerTask('default', [ 'uglify', 'htmlmin', 'copy', 'inline']);
 };

@@ -1,33 +1,37 @@
+/* eslint-disable no-useless-escape */
 //TODO Makes these into a JSON or ENUM
 let dirSet = 0;
-let reversedDirection;
 let stepChange = 2;
-let globTime = parseFloat(new Date().getTime() / 1000);
-let ballPosition = parseInt($(window).width() / ($(window).width() / 100)); //
+let globTime = parseFloat((new Date().getTime() / 1000).toString());
+let ballPosition = $(window).width() / ($(window).width() / 100); //
 let setCounter = 0;
 let firstFailure = true;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface Window {
+    webkitAudioContext: typeof AudioContext
+  }
 
 /**
  * Function to generate beep tones
  * @param {Number} panVal value for either left or right channel
  * @returns None
  */
-function beep(panVal) {
+function beep(panVal: number) {
     // audio disabled?
     if ($("#soundSettings").is(":hidden")) {
         return;
     }
     // create the audio context
-    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    // create the things ballPossition am using to manipulate the beeps
-    let oscillator = audioCtx.createOscillator();
-    let panNode = audioCtx.createStereoPanner();
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // create the things ballPosition am using to manipulate the beeps
+    const oscillator = audioCtx.createOscillator();
+    const panNode = audioCtx.createStereoPanner();
 
     //set manipulations and stuff to make to sound wave
     panNode.pan.value = panVal;
-    oscillator.frequency.value = $("#fIn").val();
-    oscillator.type = $("#tIn").val();
+    oscillator.frequency.value = $("#fIn").val() as number;
+    oscillator.type = $("#tIn").val() as OscillatorType;
 
     // add in the bits to the audio
     oscillator.connect(panNode);
@@ -42,7 +46,7 @@ function beep(panVal) {
     setTimeout(function () {
         oscillator.stop();
     }, num);
-};
+}
 
 /**
  * Builds the ui on load
@@ -75,7 +79,7 @@ function uiBuilder() {
     $(stopStartButton).append("<svg id='play' style='display:none;' xmlns='http://www.w3.org/2000/svg' height='24px' viewbox='0 0 24 24'width='24px' fill='#000000'><path d='M0 0h24v24H0V0z' fill='none' /><path d='M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z' /></svg><svg id='stop' style='display:block;' xmlns='http://www.w3.org/2000/svg' height='24px' viewbox='0 0 24 24'width='24px' fill='#000000'><path d='M0 0h24v24H0V0z' fill='none' /><path d='M16 8v8H8V8h8m2-2H6v12h12V6z' /></svg>");
     stopStartButton.addEventListener("click", function () {
         setCounter = 0;
-        globTime = parseFloat(new Date().getTime() / 1000);
+        globTime = parseFloat((new Date().getTime() / 1000).toString());
         $("#stop").toggle();
         $("#play").toggle();
         firstFailure = !firstFailure;
@@ -88,13 +92,14 @@ function uiBuilder() {
     const inpWrapper = document.createElement("div");
     //speed
     inpWrapper.className = "inpWrapper";
-    $(inpWrapper).append("<div class='inpItem'><div class='label'>Speed</div><input type='number' patern='\d*' id='changeVal' value='2'></div>");
-    //sets
+    $(inpWrapper).append("<div class='inpItem'><div class='label'>Speed</div><input type='number' pattern='\d*' id='changeVal' value='2'></div>");
+    //set
     const setDiv = document.createElement("div");
     setDiv.className = "inpItem";
     const setToggle = document.createElement("div");
     setToggle.className = "label";
-    setToggle.style = "display: flex; align-items: center;";
+    setToggle.style.display = "flex";
+    setToggle.style.alignItems = "center";
     $(setToggle).append("Sets");
     const setButton = document.createElement("button");
     setButton.id = "setButton";
@@ -113,14 +118,15 @@ function uiBuilder() {
     });
     $(setToggle).append(setButton);
     $(setDiv).append(setToggle);
-    $(setDiv).append("<input type='number' patern='\d*' id='changeSet' value='2'>");
+    $(setDiv).append("<input type='number' pattern='\d*' id='changeSet' value='2'>");
     $(inpWrapper).append(setDiv);
     //time
     const timeDiv = document.createElement("div");
     timeDiv.className = "inpItem";
     const timeToggle = document.createElement("div");
     timeToggle.className = "label";
-    timeToggle.style = "display: flex; align-items: center;";
+    timeToggle.style.display = "flex";
+    timeToggle.style.alignItems = "center";
     $(timeToggle).append("Time (Seconds)");
     const timeButton = document.createElement("button");
     timeButton.id = "timeButton";
@@ -139,7 +145,7 @@ function uiBuilder() {
     });
     $(timeToggle).append(timeButton);
     $(timeDiv).append(timeToggle);
-    $(timeDiv).append("<input type='number' patern='\d*' id='changeTime' value='30'>");
+    $(timeDiv).append("<input type='number' pattern='\d*' id='changeTime' value='30'>");
     $(inpWrapper).append(timeDiv);
     //ball color
     const ballColorDiv = document.createElement("div");
@@ -162,7 +168,7 @@ function uiBuilder() {
     ballColorInput.type = "color";
     ballColorInput.id = "colorPal";
     ballColorInput.addEventListener("input", () => {
-        $("#movingDiv").css("background-color", $("#colorPal").val());
+        $("#movingDiv").css("background-color", $("#colorPal").val() as string);
     });
     $(ballColorDiv).append(ballColorInput);
     $(inpWrapper).append(ballColorDiv);
@@ -187,7 +193,7 @@ function uiBuilder() {
     backgroundColorInput.type = "color";
     backgroundColorInput.id = "backgroundPal";
     backgroundColorInput.addEventListener("input", () => {
-        $("body").css("background-color", $("#backgroundPal").val());
+        $("body").css("background-color", $("#backgroundPal").val() as string);
     });
     $(backgroundColorDiv).append(backgroundColorInput);
     $(inpWrapper).append(backgroundColorDiv);
@@ -201,7 +207,8 @@ function uiBuilder() {
     $(ballSizeDivWrapper).append(ballSizeLabel);
 
     const ballSizeDiv = document.createElement("div");
-    ballSizeDiv.style = "display:flex;align-items:center;";
+    ballSizeDiv.style.display = "flex";
+    ballSizeDiv.style.alignItems = "center";
 
 
     const ballSizes = [
@@ -246,9 +253,9 @@ function uiBuilder() {
     ];
     ballDirections.forEach(function (direction) {
         const temp = document.createElement("button");
-        $(temp).append(direction[0]);
+        $(temp).append(direction[0]as string);
         temp.addEventListener("click", function () {
-            dirSet = direction[1];
+            dirSet = direction[1] as number;
         });
         $(ballDirectionDiv).append(temp);
     });
@@ -258,7 +265,8 @@ function uiBuilder() {
     soundDiv.className = "inpItem";
     const soundToggle = document.createElement("div");
     soundToggle.className = "label";
-    soundToggle.style = "display: flex; align-items: center;";
+    soundToggle.style.display = "flex";
+    soundToggle.style.alignItems = "center";
     $(soundToggle).append("Sound");
     const soundButton = document.createElement("button");
     soundButton.id = "soundButton";
@@ -272,7 +280,7 @@ function uiBuilder() {
     });
     $(soundToggle).append(soundButton);
     $(soundDiv).append(soundToggle);
-    $(soundDiv).append("<div style='display:none;' id='soundSettings'>Freq <input type='number' patern='\d*' id='fIn' value='500'><br>Type <select id='tIn'><option value='sine'>sine</option><option value='square'>square</option><option value='sawtooth'>sawtooth</option><option value='triangle'>triangle</option></select></div>");
+    $(soundDiv).append("<div style='display:none;' id='soundSettings'>Freq <input type='number' pattern='\d*' id='fIn' value='500'><br>Type <select id='tIn'><option value='sine'>sine</option><option value='square'>square</option><option value='sawtooth'>sawtooth</option><option value='triangle'>triangle</option></select></div>");
     $(inpWrapper).append(soundDiv);
 
 
@@ -291,7 +299,7 @@ function uiBuilder() {
 /**
  * moves the ball horizontally; dirSet=0
  */
-async function horizontalDirection() {
+function horizontalDirection() {
     $("#movingDiv").css("right", (ballPosition + "px"));
     $("#movingDiv").css("top", (($(window).height() / 2) + "px"));
     $("#movingDiv").css("left", "");
@@ -299,24 +307,24 @@ async function horizontalDirection() {
 /**
  * moves the ball diagonally from left to right; dirSet=1
  */
-async function leftToRight() {
-    let diagAngle = Math.atan($(window).height() / $(window).width());
-    sined = Math.sin(diagAngle) * ballPosition;
-    cosed = Math.cos(diagAngle) * ballPosition;
+function leftToRight() {
+    const diagAngle = Math.atan($(window).height() / $(window).width());
+    const sineAns = Math.sin(diagAngle) * ballPosition;
+    const cosAns = Math.cos(diagAngle) * ballPosition;
     $("#movingDiv").css("right", "");
-    $("#movingDiv").css("top", (sined + "px"));
-    $("#movingDiv").css("left", (cosed + "px"));
+    $("#movingDiv").css("top", (sineAns + "px"));
+    $("#movingDiv").css("left", (cosAns + "px"));
 }
 /**
  * moves the ball diagonally from right to left; dirSet=2
  */
-async function rightToLeft() {
-    let diagAngle = Math.atan($(window).height() / $(window).width());
-    sined = Math.sin(diagAngle) * ballPosition;
-    cosed = Math.cos(diagAngle) * ballPosition;
+function rightToLeft() {
+    const diagAngle = Math.atan($(window).height() / $(window).width());
+    const sineAns = Math.sin(diagAngle) * ballPosition;
+    const cosAns = Math.cos(diagAngle) * ballPosition;
     $("#movingDiv").css("left", "");
-    $("#movingDiv").css("top", (sined + "px"));
-    $("#movingDiv").css("right", (cosed + "px"));
+    $("#movingDiv").css("top", (sineAns + "px"));
+    $("#movingDiv").css("right", (cosAns + "px"));
 }
 
 // Run when the program first loads
@@ -325,14 +333,16 @@ window.onload = function () {
     let oppositeDirection = false;
     setInterval(function () {
         // get the time limit
-        let settime = parseInt($("#changeTime").val()) + globTime;
+        const setTime = parseInt($("#changeTime").val() as string) + globTime;
         //check if play clicked, sets and time are correct
-        if ($("#stop").is(":visible") && Number($("#changeSet").val()) > setCounter && settime >= parseFloat(new Date().getTime() / 1000)) {
+        if ($("#stop").is(":visible") && Number($("#changeSet").val()) > setCounter && setTime >= parseFloat((new Date().getTime() / 1000).toString())) {
+        console.log(setTime, globTime)
+
             stepChange = Number($("#changeVal").val());
             let maxPosition;
             // check if diagonals are selected and set max space limit
             if (dirSet != 0) {
-                let bigBall = $("#movingDiv").width() * 2;
+                const bigBall = $("#movingDiv").width() * 2;
                 maxPosition = Math.hypot(($(window).width() - bigBall), ($(window).height() - bigBall));
             }
             else {
@@ -342,7 +352,7 @@ window.onload = function () {
             if (ballPosition >= maxPosition && !oppositeDirection) {
                 oppositeDirection = true;
                 setCounter++;
-                //fix for mixed up sound on dirset=1
+                //fix for mixed up sound on dirSet=1
                 if (dirSet == 1) {
                     beep(1);
                 }
@@ -352,7 +362,7 @@ window.onload = function () {
             }
             else if (ballPosition <= 0 && oppositeDirection) {
                 oppositeDirection = false;
-                //fix for mixed up sound on dirset=1
+                //fix for mixed up sound on dirSet=1
                 if (dirSet == 1) {
                     beep(-1);
                 }
