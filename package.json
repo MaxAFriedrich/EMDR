@@ -1,0 +1,37 @@
+{
+  "name": "emdr",
+  "version": "1.0.0",
+  "description": "EMDR light bar application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && grunt",
+    "lint": "eslint -c .eslintrc --ext .ts ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxAFriedrich/EMDR.git"
+  },
+  "keywords": [
+    "emdr",
+    "emdr-resources"
+  ],
+  "author": "Max Friedrich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MaxAFriedrich/EMDR/issues"
+  },
+  "homepage": "https://github.com/MaxAFriedrich/EMDR#readme",
+  "devDependencies": {
+    "@types/jquery": "^3.5.11",
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
+    "eslint": "^8.5.0",
+    "grunt": "^1.4.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-htmlmin": "^3.1.0",
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-inline": "^0.3.7",
+    "typescript": "^4.5.4"
+  }
+}

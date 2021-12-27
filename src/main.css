@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    color: dimgray;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+button {
+    border: none;
+    font-size: inherit;
+    background: none;
+    outline: none;
+}
+
+#movingDiv {
+    position: absolute;
+    border: none;
+    text-align: center;
+    background-color: red;
+    font-weight: bold;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    z-index: 1;
+}
+
+.colorBall {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.3rem;
+    margin-right: 0.6ex;
+}
+
+input[type="color"] {
+    -webkit-appearance: none;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.3rem;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+}
+
+input[type="color"i] {
+    background: none;
+    border: none;
+}
+
+input[type="number"] {
+    width: 10ch;
+    margin: 0.3rem;
+    color: black;
+    outline: none;
+    white-space: nowrap;
+    border: none;
+    background-color: rgb(196, 196, 196);
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.sizeBall {
+    background-color: black;
+    border-radius: 50%;
+    margin-right: 0.6ex;
+}
+
+.inpWrapper {
+    background-color: gainsboro;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.inpItem {
+    background-color: rgb(196, 196, 196);
+    margin: 0.3rem;
+    border-radius: 0.3rem;
+    padding: 0.3rem;
+    flex: 1 0 auto;
+    min-height: 4.5rem;
+}
+
+.helpItem {
+    flex: 2 0 50%;
+    height: auto;
+    min-width: 45%;
+}
+
+.inptDiv {
+    display: block;
+    width: 95%;
+    margin: 0.3rem;
+    color: black;
+    outline: none;
+    white-space: nowrap;
+}
+
+#setButton svg {
+    height: 1em;
+}
+
+#timeButton svg {
+    height: 1em;
+}
+
+#soundButton svg {
+    height: 1em;
+}
+
+#tIn {
+    font-size: inherit;
+    font-family: inherit;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border-radius: 0.3rem;
+    padding: 0.1rem;
+    background: none;
+}
+
+.mainSettingsWrapper {
+    background-color: gainsboro;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: fit-content;
+    height: fit-content;
+}
