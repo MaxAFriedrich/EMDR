@@ -1,0 +1,30 @@
+{
+  "name": "emdr",
+  "version": "1.0.0",
+  "description": "EMDR light bar application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxAFriedrich/EMDR.git"
+  },
+  "keywords": [
+    "emdr",
+    "emdr-resources"
+  ],
+  "author": "Max Friedrich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MaxAFriedrich/EMDR/issues"
+  },
+  "homepage": "https://github.com/MaxAFriedrich/EMDR#readme",
+  "devDependencies": {
+    "grunt": "^1.4.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-htmlmin": "^3.1.0",
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-inline": "^0.3.7"
+  }
+}
