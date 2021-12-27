@@ -84,7 +84,6 @@ function uiBuilder() {
         ball.globTime = parseFloat((new Date().getTime() / 1000).toString());
         $("#stop").toggle();
         $("#play").toggle();
-        console.log($("#stop").data("bool"));
         $("#stop").data("bool", !$("#stop").data("bool"));
     });
     $(mainSettingsWrapper).append(stopStartButton);
