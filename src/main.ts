@@ -1,16 +1,18 @@
 /* eslint-disable no-useless-escape */
-//TODO Makes these into a JSON or ENUM
-let dirSet = 0;
-let stepChange = 2;
-let globTime = parseFloat((new Date().getTime() / 1000).toString());
-let ballPosition = $(window).width() / ($(window).width() / 100); //
-let setCounter = 0;
-let firstFailure = true;
+const ball = {
+    "dirSet": 0,
+    "stepChange": 2,
+    "globTime": parseFloat((new Date().getTime() / 1000).toString()),
+    "ballPosition": $(window).width() / ($(window).width() / 100),
+    "setCounter": 0,
+    "firstFailure": true
+};
+
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Window {
-    webkitAudioContext: typeof AudioContext
-  }
+    webkitAudioContext: typeof AudioContext;
+}
 
 /**
  * Function to generate beep tones
@@ -19,12 +21,12 @@ interface Window {
  */
 function beep(panVal: number) {
     // audio disabled?
-    if ($("#soundSettings").is(":hidden")) {
+    if (!$("#soundSettings").data("bool")) {
         return;
     }
     // create the audio context
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    // create the things ballPosition am using to manipulate the beeps
+    // create the things ball.ballPosition am using to manipulate the beeps
     const oscillator = audioCtx.createOscillator();
     const panNode = audioCtx.createStereoPanner();
 
@@ -70,20 +72,20 @@ function uiBuilder() {
         $("#visible").toggle();
         $("#notVisible").toggle();
         //? used to fire when box hidden
-        ////setCounter = 0;
+        ////ball.setCounter = 0;
     });
     $(mainSettingsWrapper).append(showHideButton);
     const stopStartButton = document.createElement("button");
     stopStartButton.className = "mainToggles";
     stopStartButton.id = "stopStart";
-    $(stopStartButton).append("<svg id='play' style='display:none;' xmlns='http://www.w3.org/2000/svg' height='24px' viewbox='0 0 24 24'width='24px' fill='#000000'><path d='M0 0h24v24H0V0z' fill='none' /><path d='M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z' /></svg><svg id='stop' style='display:block;' xmlns='http://www.w3.org/2000/svg' height='24px' viewbox='0 0 24 24'width='24px' fill='#000000'><path d='M0 0h24v24H0V0z' fill='none' /><path d='M16 8v8H8V8h8m2-2H6v12h12V6z' /></svg>");
+    $(stopStartButton).append("<svg id='play' style='display:none;' xmlns='http://www.w3.org/2000/svg' height='24px' viewbox='0 0 24 24'width='24px' fill='#000000'><path d='M0 0h24v24H0V0z' fill='none' /><path d='M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z' /></svg><svg id='stop' data-bool='true' style='display:block;' xmlns='http://www.w3.org/2000/svg' height='24px' viewbox='0 0 24 24'width='24px' fill='#000000'><path d='M0 0h24v24H0V0z' fill='none' /><path d='M16 8v8H8V8h8m2-2H6v12h12V6z' /></svg>");
     stopStartButton.addEventListener("click", function () {
-        setCounter = 0;
-        globTime = parseFloat((new Date().getTime() / 1000).toString());
+        ball.setCounter = 0;
+        ball.globTime = parseFloat((new Date().getTime() / 1000).toString());
         $("#stop").toggle();
         $("#play").toggle();
-        firstFailure = !firstFailure;
-
+        console.log($("#stop").data("bool"));
+        $("#stop").data("bool", !$("#stop").data("bool"));
     });
     $(mainSettingsWrapper).append(stopStartButton);
     // Add main hidable settings ui
@@ -109,16 +111,12 @@ function uiBuilder() {
         $("#changeSet").toggle();
         $("#manualSet").toggle();
         $("#autoSet").toggle();
-        if ($("#changeSet").val() == "10000000000000000000000000000000000000000000000") { //Manual
-            $("#changeSet").val("2");
+        $("#changeSet").data("bool", !$("#changeSet").data("bool"));
 
-        } else { // Auto
-            $("#changeSet").val("10000000000000000000000000000000000000000000000");
-        }
     });
     $(setToggle).append(setButton);
     $(setDiv).append(setToggle);
-    $(setDiv).append("<input type='number' pattern='\d*' id='changeSet' value='2'>");
+    $(setDiv).append("<input type='number' pattern='\d*' id='changeSet' data-bool='true' value='2'>");
     $(inpWrapper).append(setDiv);
     //time
     const timeDiv = document.createElement("div");
@@ -136,16 +134,11 @@ function uiBuilder() {
         $("#changeTime").toggle();
         $("#manualTime").toggle();
         $("#autoTime").toggle();
-        if ($("#changeTime").val() == "10000000000000000000000000000000000000000000000") { //Manual
-            $("#changeTime").val("30");
-
-        } else { // Auto
-            $("#changeTime").val("10000000000000000000000000000000000000000000000");
-        }
+        $("#changeTime").data("bool", !$("#changeTime").data("bool"));
     });
     $(timeToggle).append(timeButton);
     $(timeDiv).append(timeToggle);
-    $(timeDiv).append("<input type='number' pattern='\d*' id='changeTime' value='30'>");
+    $(timeDiv).append("<input type='number' pattern='\d*' id='changeTime' value='30' data-bool='true'>");
     $(inpWrapper).append(timeDiv);
     //ball color
     const ballColorDiv = document.createElement("div");
@@ -253,9 +246,9 @@ function uiBuilder() {
     ];
     ballDirections.forEach(function (direction) {
         const temp = document.createElement("button");
-        $(temp).append(direction[0]as string);
+        $(temp).append(direction[0] as string);
         temp.addEventListener("click", function () {
-            dirSet = direction[1] as number;
+            ball.dirSet = direction[1] as number;
         });
         $(ballDirectionDiv).append(temp);
     });
@@ -276,11 +269,12 @@ function uiBuilder() {
         $("#soundOn").toggle();
         $("#soundOff").toggle();
         $("#soundSettings").toggle();
+        $("#soundSettings").data("bool", !$("#soundSettings").data("bool"));
 
     });
     $(soundToggle).append(soundButton);
     $(soundDiv).append(soundToggle);
-    $(soundDiv).append("<div style='display:none;' id='soundSettings'>Freq <input type='number' pattern='\d*' id='fIn' value='500'><br>Type <select id='tIn'><option value='sine'>sine</option><option value='square'>square</option><option value='sawtooth'>sawtooth</option><option value='triangle'>triangle</option></select></div>");
+    $(soundDiv).append("<div style='display:none;' id='soundSettings' data-bool='false'>Freq <input type='number' pattern='\d*' id='fIn' value='500'><br>Type <select id='tIn'><option value='sine'>sine</option><option value='square'>square</option><option value='sawtooth'>sawtooth</option><option value='triangle'>triangle</option></select></div>");
     $(inpWrapper).append(soundDiv);
 
 
@@ -297,31 +291,31 @@ function uiBuilder() {
 }
 
 /**
- * moves the ball horizontally; dirSet=0
+ * moves the ball horizontally; ball.dirSet=0
  */
 function horizontalDirection() {
-    $("#movingDiv").css("right", (ballPosition + "px"));
+    $("#movingDiv").css("right", (ball.ballPosition + "px"));
     $("#movingDiv").css("top", (($(window).height() / 2) + "px"));
     $("#movingDiv").css("left", "");
 }
 /**
- * moves the ball diagonally from left to right; dirSet=1
+ * moves the ball diagonally from left to right; ball.dirSet=1
  */
 function leftToRight() {
     const diagAngle = Math.atan($(window).height() / $(window).width());
-    const sineAns = Math.sin(diagAngle) * ballPosition;
-    const cosAns = Math.cos(diagAngle) * ballPosition;
+    const sineAns = Math.sin(diagAngle) * ball.ballPosition;
+    const cosAns = Math.cos(diagAngle) * ball.ballPosition;
     $("#movingDiv").css("right", "");
     $("#movingDiv").css("top", (sineAns + "px"));
     $("#movingDiv").css("left", (cosAns + "px"));
 }
 /**
- * moves the ball diagonally from right to left; dirSet=2
+ * moves the ball diagonally from right to left; ball.dirSet=2
  */
 function rightToLeft() {
     const diagAngle = Math.atan($(window).height() / $(window).width());
-    const sineAns = Math.sin(diagAngle) * ballPosition;
-    const cosAns = Math.cos(diagAngle) * ballPosition;
+    const sineAns = Math.sin(diagAngle) * ball.ballPosition;
+    const cosAns = Math.cos(diagAngle) * ball.ballPosition;
     $("#movingDiv").css("left", "");
     $("#movingDiv").css("top", (sineAns + "px"));
     $("#movingDiv").css("right", (cosAns + "px"));
@@ -333,15 +327,25 @@ window.onload = function () {
     let oppositeDirection = false;
     setInterval(function () {
         // get the time limit
-        const setTime = parseInt($("#changeTime").val() as string) + globTime;
+        const setTime = parseInt($("#changeTime").val() as string) + ball.globTime;
+        //check for auto settings
+        let setTemp: boolean, timeTemp: boolean;
+        if ($("#changeSet").data("bool")) {
+            setTemp = Number($("#changeSet").val()) > ball.setCounter;
+        } else {
+            setTemp = true;
+        }
+        if ($("#changeTime").data("bool")) {
+            timeTemp = setTime >= parseFloat((new Date().getTime() / 1000).toString());
+        } else {
+            timeTemp = true;
+        }
         //check if play clicked, sets and time are correct
-        if ($("#stop").is(":visible") && Number($("#changeSet").val()) > setCounter && setTime >= parseFloat((new Date().getTime() / 1000).toString())) {
-        console.log(setTime, globTime)
-
-            stepChange = Number($("#changeVal").val());
+        if ($("#stop").data("bool") && setTemp && timeTemp) {
+            ball.stepChange = Number($("#changeVal").val());
             let maxPosition;
             // check if diagonals are selected and set max space limit
-            if (dirSet != 0) {
+            if (ball.dirSet != 0) {
                 const bigBall = $("#movingDiv").width() * 2;
                 maxPosition = Math.hypot(($(window).width() - bigBall), ($(window).height() - bigBall));
             }
@@ -349,21 +353,21 @@ window.onload = function () {
                 maxPosition = $(window).width() - $("#movingDiv").width();
             }
             // check if ball reached limits
-            if (ballPosition >= maxPosition && !oppositeDirection) {
+            if (ball.ballPosition >= maxPosition && !oppositeDirection) {
                 oppositeDirection = true;
-                setCounter++;
-                //fix for mixed up sound on dirSet=1
-                if (dirSet == 1) {
+                ball.setCounter++;
+                //fix for mixed up sound on ball.dirSet=1
+                if (ball.dirSet == 1) {
                     beep(1);
                 }
                 else {
                     beep(-1);
                 }
             }
-            else if (ballPosition <= 0 && oppositeDirection) {
+            else if (ball.ballPosition <= 0 && oppositeDirection) {
                 oppositeDirection = false;
-                //fix for mixed up sound on dirSet=1
-                if (dirSet == 1) {
+                //fix for mixed up sound on ball.dirSet=1
+                if (ball.dirSet == 1) {
                     beep(-1);
                 }
                 else {
@@ -372,23 +376,24 @@ window.onload = function () {
             }
             //check which direction and change position values
             if (oppositeDirection) {
-                ballPosition -= stepChange;
+                ball.ballPosition -= ball.stepChange;
             } else {
-                ballPosition += stepChange;
+                ball.ballPosition += ball.stepChange;
             }
             // move to new positions
-            if (dirSet == 0) {
+            if (ball.dirSet == 0) {
                 horizontalDirection();
-            } else if (dirSet == 1) {
+            } else if (ball.dirSet == 1) {
                 leftToRight();
-            } else if (dirSet == 2) {
+            } else if (ball.dirSet == 2) {
                 rightToLeft();
             }
 
-        } else if (firstFailure) {
-            $("#stop").toggle();
-            $("#play").toggle();
-            firstFailure = false;
+        } else {
+            $("#stop").hide();
+            $("#play").show();
+            ball.firstFailure = false;
+            $("#stop").data("bool", false);
         }
-    }, stepChange);
+    }, ball.stepChange);
 };

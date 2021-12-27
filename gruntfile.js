@@ -26,6 +26,9 @@ module.exports = function (grunt) {
         },
         uglify: {
             build: {
+                options: {
+                    ie8: true
+                },
                 src: 'srcjs/main.js',
                 dest: 'dist/main.js'
             }
@@ -56,5 +59,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-inline');
 
-    grunt.registerTask('default', [ 'uglify', 'htmlmin', 'copy', 'inline']);
+    grunt.registerTask('default', ['uglify', 'htmlmin', 'copy', 'inline']);
 };
