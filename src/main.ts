@@ -19,13 +19,16 @@ interface Window {
  * @param {Number} panVal value for either left or right channel
  * @returns None
  */
+
+//create audio context a single time 
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
 function beep(panVal: number) {
     // audio disabled?
     if (!$("#soundSettings").data("bool")) {
         return;
     }
-    // create the audio context
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
     // create the things ball.ballPosition am using to manipulate the beeps
     const oscillator = audioCtx.createOscillator();
     const panNode = audioCtx.createStereoPanner();
