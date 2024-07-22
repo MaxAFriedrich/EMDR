@@ -4,53 +4,38 @@ module.exports = function (grunt) {
         'npm-command': {
             lint: {
                 options: {
-                    cwd: 'run',
-                    args: ['lint']
-                },
-                build: {
+                    cwd: 'run', args: ['lint']
+                }, build: {
                     options: {
-                        cwd: 'run',
-                        args: ['build']
+                        cwd: 'run', args: ['build']
                     }
                 }
             }
-        },
-        inline: {
-            dist: {
-                options: {
-                    cssmin: true,
-                },
-                src: 'dist/index.html',
-                dest: 'index.html'
-            }
-        },
-        uglify: {
+        }, uglify: {
             build: {
                 options: {
                     ie8: true
-                },
-                src: 'srcjs/main.js',
-                dest: 'dist/main.js'
+                }, src: 'dist/main.js', dest: 'dist/main.js'
             }
-        },
-        htmlmin: {                                     // Task
-            dist: {                                      // Target
-                options: {                                 // Target options
-                    removeComments: true,
-                    collapseWhitespace: true
-                },
-                files: {                                   // Dictionary of files
-                    'dist/index.html': 'src/index.html'     // 'destination': 'source'
+        }, htmlmin: {
+            dist: {
+                options: {
+                    removeComments: true, collapseWhitespace: true
+                }, files: {
+                    'dist/index.html': 'src/index.html'
                 }
             }
-        },
-        copy: {
+        }, copy: {
             main: {
-                expand: true,
-                files: {                                   // Dictionary of files
-                    'dist/main.css': 'src/main.css',     // 'destination': 'source'
-                    'dist/jquery.js': 'src/jquery.js'     // 'destination': 'source'
+                expand: true, files: {
+                    'dist/': ['static/.']
                 }
+            }
+        }, inline: {
+            dist: {
+                options: {
+                    cssmin: true,
+                }, src: 'dist/index.html', dest: 'dist/index.html'
             }
         }
     });
