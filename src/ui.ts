@@ -1,8 +1,15 @@
-export class WrappedElement {
+class WrappedElement {
     element: HTMLElement
+    state: boolean
 
-    constructor(element: HTMLElement) {
-        this.element = element
+
+    constructor(id?: string, state?: boolean, element?: HTMLElement) {
+        this.state = state
+        if (element) {
+            this.element = element
+        } else {
+            this.element = document.getElementById(id)
+        }
     }
 
     private _value(value?: string) {
@@ -18,6 +25,18 @@ export class WrappedElement {
             } else {
                 return this.element.innerText
             }
+        }
+    }
+
+    private _isShown(): boolean {
+        return this.element.style.display !== "none"
+    }
+
+    event(eventCallback: (e: Event) => void) {
+        if (this.element instanceof HTMLInputElement) {
+            this.element.oninput = eventCallback
+        } else {
+            this.element.onclick = eventCallback
         }
     }
 
@@ -37,11 +56,11 @@ export class WrappedElement {
         }
     }
 
-    data(key: string, value?: string|boolean) {
-        if (value) {
-            this.element.dataset[key] = value as string
+    float(float?: number) {
+        if (float) {
+            this._value(float.toString())
         } else {
-            return this.element.dataset[key]
+            return parseFloat(this._value())
         }
     }
 
@@ -64,13 +83,30 @@ export class WrappedElement {
     show() {
         this.element.style.display = ""
     }
+
+    toggle() {
+        this.element.style.display = this._isShown() ? "none" : ""
+    }
+
 }
 
-function id(id: string) {
-    return new WrappedElement(document.getElementById(id))
+class ElementClass {
+    className: string
+    elements: Array<WrappedElement>
+
+    constructor(className: string) {
+        this.className = className
+        this.elements = Array.from(document.getElementsByClassName(className)).map(e => {
+            return new WrappedElement(undefined, undefined, e as HTMLElement)
+        })
+    }
+
+    event(eventCallback: (e: Event) => void) {
+        this.elements.forEach(e => e.event(eventCallback))
+    }
 }
 
-class WrappedWindow {
+class Window {
     height() {
         return window.innerHeight
     }
@@ -81,14 +117,36 @@ class WrappedWindow {
 }
 
 export const UI = {
-    soundSettings: id("soundSettings"),
-    fIn: id("fIn"),
-    tIn: id("tIn"),
-    changeVal: id("changeVal"),
-    ball: id("movingDiv"),
-    changeTime: id("changeTime"),
-    changeSet: id("changeSet"),
-    stop: id("stop"),
-    play: id("play"),
-    window: new WrappedWindow(),
+    settings: new WrappedElement("settings"),
+    visible: new WrappedElement("visible"),
+    notVisible: new WrappedElement("notVisible"),
+    soundSettings: new WrappedElement("soundSettings", false),
+    soundButton: new WrappedElement("soundButton"),
+    soundOn: new WrappedElement("soundOn"),
+    soundOff: new WrappedElement("soundOff"),
+    fIn: new WrappedElement("fIn"),
+    tIn: new WrappedElement("tIn"),
+    changeVal: new WrappedElement("changeVal"),
+    ball: new WrappedElement("ball"),
+    changeTime: new WrappedElement("changeTime", true),
+    changeSet: new WrappedElement("changeSet", true),
+    stopStart: new WrappedElement("stopStart"),
+    stop: new WrappedElement("stop"),
+    play: new WrappedElement("play"),
+    showHide: new WrappedElement("showHide"),
+    setButton: new WrappedElement("setButton"),
+    manualSet: new WrappedElement("manualSet"),
+    autoSet: new WrappedElement("autoSet"),
+    timeButton: new WrappedElement("timeButton"),
+    manualTime: new WrappedElement("manualTime"),
+    autoTime: new WrappedElement("autoTime"),
+    colorBall: new ElementClass("colorBall"),
+    colorPal: new WrappedElement("colorPal"),
+    backgroundColors: new ElementClass("backgroundColor"),
+    backgroundPal: new WrappedElement("backgroundPal"),
+    sizeBall: new ElementClass("sizeBall"),
+    customBallSize: new WrappedElement("customBallSize"),
+    ballDirection: new ElementClass("ballDirection"),
+
+    window: new Window(),
 }

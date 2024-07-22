@@ -19,7 +19,7 @@ button {
     outline: none;
 }
 
-#movingDiv {
+#ball {
     position: absolute;
     border: none;
     text-align: center;
@@ -33,7 +33,7 @@ button {
     z-index: 1;
 }
 
-.colorBall {
+.colorBall, .backgroundColor {
     border-radius: 50%;
     width: 2rem;
     height: 2rem;

@@ -17,7 +17,7 @@
 
 <body>
 <noscript><h1>Please enable JavaScript.</h1></noscript>
-<div id="movingDiv"></div>
+<div id="ball"></div>
 <div id="UI">
     <div class="mainSettingsWrapper">
         <button class="mainToggles" id="showHide">
@@ -34,11 +34,12 @@
         </button>
         <button class="mainToggles" id="stopStart">
             <svg id="play" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"
+                 style="display: none;"
                  fill="#000000">
                 <path d="M0 0h24v24H0V0z" fill="none"></path>
                 <path d="M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z"></path>
             </svg>
-            <svg id="stop" data-bool="true" style="display: none;" xmlns="http://www.w3.org/2000/svg" height="24px"
+            <svg id="stop" xmlns="http://www.w3.org/2000/svg" height="24px"
                  viewBox="0 0 24 24" width="24px" fill="#000000">
                 <path d="M0 0h24v24H0V0z" fill="none"></path>
                 <path d="M16 8v8H8V8h8m2-2H6v12h12V6z"></path>
@@ -65,7 +66,7 @@
                         </svg>
                     </button>
                 </div>
-                <input type="number" pattern="d*" id="changeSet" data-bool="true" value="2"></div>
+                <input type="number" pattern="d*" id="changeSet" value="2"></div>
             <div class="inpItem">
                 <label for="changeTime">Time (Seconds)
                     <button id="timeButton" style="margin: 0px;">
@@ -81,7 +82,7 @@
                         </svg>
                     </button>
                 </label>
-                <input type="number" pattern="d*" id="changeTime" value="30" data-bool="true"></div>
+                <input type="number" pattern="d*" id="changeTime" value="30"></div>
             <div class="inpItem">
                 <div class="label">Color</div>
                 <button class="colorBall" style="background-color: red;"></button>
@@ -94,9 +95,9 @@
                 <input type="color" id="colorPal"></div>
             <div class="inpItem">
                 <div class="label">Background</div>
-                <button class="colorBall" style="background-color: black;"></button>
-                <button class="colorBall" style="background-color: grey;"></button>
-                <button class="colorBall" style="background-color: white;"></button>
+                <button class="backgroundColor" style="background-color: black;"></button>
+                <button class="backgroundColor" style="background-color: grey;"></button>
+                <button class="backgroundColor" style="background-color: white;"></button>
                 <input type="color" id="backgroundPal"></div>
             <div class="inpItem">
                 <div class="label">Size</div>
@@ -108,21 +109,21 @@
             </div>
             <div class="inpItem">
                 <div class="label">Direction</div>
-                <button>
+                <button class="ballDirection" data-direction="0">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px"
                          viewBox="0 0 24 24" width="24px" fill="#000000">
                         <rect fill="none" height="24" width="24"></rect>
                         <path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"></path>
                     </svg>
                 </button>
-                <button>
+                <button class="ballDirection" data-direction="1">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px"
                          viewBox="0 0 24 24" width="24px" fill="#000000">
                         <rect fill="none" height="24" width="24"></rect>
                         <path d="M19,9h-2v6.59L5.41,4L4,5.41L15.59,17H9v2h10V9z"></path>
                     </svg>
                 </button>
-                <button>
+                <button class="ballDirection" data-direction="2">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px"
                          viewBox="0 0 24 24" width="24px" fill="#000000">
                         <rect fill="none" height="24" width="24"></rect>
@@ -145,7 +146,7 @@
                         </svg>
                     </button>
                 </div>
-                <div style="display:none;" id="soundSettings" data-bool="false">
+                <div style="display:none;" id="soundSettings">
                     <label for="fIn">Frequency</label>
                     <input type="number" pattern="d*" id="fIn" value="500">
                     <br>

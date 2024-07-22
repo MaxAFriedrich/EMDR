@@ -1,166 +1,96 @@
+import {BallDirection, BallState, startBallInterval} from "./ball";
 import {UI} from "./ui";
 
-const BallState = {
-    dirSet: 0,
-    stepChange: 2,
-    globTime: parseFloat((new Date().getTime() / 1000).toString()),
-    ballPosition: UI.window.width() / (UI.window.width() / 100),
-    setCounter: 0,
-    firstFailure: true
-};
+function setEvents() {
+    UI.showHide.event(() => {
+        UI.settings.toggle()
+        UI.visible.toggle()
+        UI.notVisible.toggle()
+    })
 
+    UI.stopStart.event(() => {
+        BallState.setCounter = 0
+        BallState.globTime = parseFloat((new Date().getTime() / 1000).toString())
+        UI.stop.toggle()
+        UI.play.toggle()
+        BallState.isPlaying = !BallState.isPlaying
+    })
 
-let oppositeDirection = false;
+    UI.setButton.event(() => {
+        UI.changeSet.state = !UI.changeSet.state
+        UI.changeSet.toggle()
+        UI.manualSet.toggle()
+        UI.autoSet.toggle()
+    })
 
-/**
- * Function to generate beep tones
- * @param {Number} panVal value for either left or right channel
- * @returns None
- */
+    UI.timeButton.event(() => {
+        UI.changeTime.state = !UI.changeTime.state
+        UI.changeTime.toggle()
+        UI.manualTime.toggle()
+        UI.autoTime.toggle()
+    })
 
-//create audio context a single time
-const audioCtx = new window.AudioContext();
+    UI.colorBall.event((e) => {
+        const newColor = (e.target as HTMLElement).style.backgroundColor
+        UI.ball.css("background-color", newColor)
+    })
 
-function beep(panVal: number) {
-    // audio disabled?
-    if (!UI.soundSettings.data("bool")) {
-        return;
+    UI.colorPal.event(() => {
+        UI.ball.css("background-color", UI.colorPal.text())
+    })
+
+    UI.backgroundColors.event((e) => {
+        document.body.style.backgroundColor = (e.target as HTMLElement).style.backgroundColor
+    })
+
+    UI.backgroundPal.event(() => {
+        document.body.style.backgroundColor = UI.backgroundPal.text()
+    })
+
+    function changeSize(size: string) {
+        UI.ball.css("width", size)
+        UI.ball.css("height", size)
     }
 
-    // create the things ball.ballPosition am using to manipulate the beeps
-    const oscillator = audioCtx.createOscillator();
-    const panNode = audioCtx.createStereoPanner();
+    UI.sizeBall.event((e) => {
+        const newSize = (e.target as HTMLElement).style.width
+        switch (newSize) {
+            case "2em":
+                changeSize("75px");
+                break
+            case "2.5em":
+                changeSize("100px");
+                break
+            case "3em":
+                changeSize("175px");
+                break
+        }
+    })
 
-    //set manipulations and stuff to make to sound wave
-    panNode.pan.value = panVal;
-    oscillator.frequency.value = UI.fIn.int();
-    oscillator.type = UI.tIn.text() as OscillatorType;
+    UI.customBallSize.event(() => {
+        const newSize = UI.customBallSize.text()
+        changeSize(`${newSize}px`)
+    })
 
-    // add in the bits to the audio
-    oscillator.connect(panNode);
-    panNode.connect(audioCtx.destination);
+    UI.ballDirection.event((e) => {
+        function getParentButton(e: EventTarget):EventTarget {
+            return (e as HTMLElement).tagName === "BUTTON" ? e : getParentButton((e as HTMLElement).parentElement)
+        }
+        BallState.dirSet = parseInt((getParentButton(e.target) as HTMLElement).attributes.getNamedItem("data-direction").value) as BallDirection
+    })
 
-    // make it work
-    oscillator.start();
-    let num = 1000 - (UI.changeVal.int() * 300);
-    if (num <= 40) {
-        num = 100;
-    }
-    setTimeout(function () {
-        oscillator.stop();
-    }, num);
-}
-
-/**
- * moves the ball horizontally; ball.dirSet=0
- */
-function horizontalDirection() {
-    UI.ball.css("right", (BallState.ballPosition + "px"));
-    UI.ball.css("top", ((UI.window.height() / 2) + "px"));
-    UI.ball.css("left", "");
-}
-
-/**
- * moves the ball diagonally from left to right; ball.dirSet=1
- */
-function leftToRight() {
-    const diagAngle = Math.atan(UI.window.height() / UI.window.width());
-    const sineAns = Math.sin(diagAngle) * BallState.ballPosition;
-    const cosAns = Math.cos(diagAngle) * BallState.ballPosition;
-    UI.ball.css("right", "");
-    UI.ball.css("top", (sineAns + "px"));
-    UI.ball.css("left", (cosAns + "px"));
-}
-
-/**
- * moves the ball diagonally from right to left; ball.dirSet=2
- */
-function rightToLeft() {
-    const diagAngle = Math.atan(UI.window.height() / UI.window.width());
-    const sineAns = Math.sin(diagAngle) * BallState.ballPosition;
-    const cosAns = Math.cos(diagAngle) * BallState.ballPosition;
-    UI.ball.css("left", "");
-    UI.ball.css("top", (sineAns + "px"));
-    UI.ball.css("right", (cosAns + "px"));
-}
-
-function updateBallPosition() {
-    const maxPosition = calculateMaxPosition();
-    updateDirectionIfNeeded(maxPosition);
-    moveBall();
-    updateUIAfterMovement();
-}
-
-function calculateMaxPosition(): number {
-    if (BallState.dirSet != 0) {
-        const bigBall = UI.ball.width() * 2;
-        return Math.hypot(UI.window.width() - bigBall, UI.window.height() - bigBall);
-    } else {
-        return UI.window.width() - UI.ball.width();
-    }
-}
-
-function updateDirectionIfNeeded(maxPosition: number) {
-    if (BallState.ballPosition >= maxPosition && !oppositeDirection) {
-        oppositeDirection = true;
-        BallState.setCounter++;
-        beepBasedOnDirection(1);
-    } else if (BallState.ballPosition <= 0 && oppositeDirection) {
-        oppositeDirection = false;
-        beepBasedOnDirection(-1);
-    }
-}
-
-function beepBasedOnDirection(direction: number) {
-    if (BallState.dirSet == 1) {
-        beep(direction * -1);
-    } else {
-        beep(direction);
-    }
-}
-
-function moveBall() {
-    if (oppositeDirection) {
-        BallState.ballPosition -= BallState.stepChange;
-    } else {
-        BallState.ballPosition += BallState.stepChange;
-    }
-}
-
-function updateUIAfterMovement() {
-    switch (BallState.dirSet) {
-        case 0:
-            horizontalDirection();
-            break;
-        case 1:
-            leftToRight();
-            break;
-        case 2:
-            rightToLeft();
-            break;
-    }
-}
-
-function checkConditions(): boolean {
-    const setTime = UI.changeTime.int() + BallState.globTime;
-    const setTemp = !UI.changeSet.data("bool") || UI.changeSet.int() > BallState.setCounter;
-    const timeTemp = !UI.changeTime.data("bool") || setTime >= parseFloat((new Date().getTime() / 1000).toString());
-    return UI.stop.data("bool") && setTemp && timeTemp;
+    UI.soundButton.event(() => {
+        UI.soundSettings.state = !UI.soundSettings.state
+        UI.soundSettings.toggle()
+        UI.soundOn.toggle()
+        UI.soundOff.toggle()
+    })
 }
 
 function main() {
-    setInterval(() => {
-        if (checkConditions()) {
-            BallState.stepChange = UI.changeVal.int();
-            updateBallPosition();
-        } else {
-            UI.play.hide();
-            UI.stop.show();
-            BallState.firstFailure = false;
-            UI.stop.data("bool", false);
-        }
-    }, BallState.stepChange);
+    startBallInterval()
+    setEvents()
 }
 
-main();
+main()
 
