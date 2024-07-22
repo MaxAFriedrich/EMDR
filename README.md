@@ -99,4 +99,4 @@ Secondly, in other applications, such as Attend Anywhere, you may have to have a
 Please make sure that you have read the [documentation](https://github.com/MaxAFriedrich/EMDR/wiki) first and check to see if anyone else has filed a similar issue.
 
 Any feedback and bug reports are very welcome! 
-If you do not want to sign into Github, you can go here to file one: https://gitreports.com/issue/MaxAFriedrich/EMDR.
+If you do not want to sign into Github, you can go here to file one: https://github.com/MaxAFriedrich/EMDR/issues/new.
