@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>EMDR</title>
@@ -12,15 +12,165 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="stylesheet" href="main.css?__inline=true">
-    <script src="jquery.js?__inline=true"></script>
-    <script src="main.js?__inline=true"></script>
+    <link rel="stylesheet" href="/main.css">
 </head>
 
 <body>
-    <noscript>
-        <h1>Please enable JavaScript.</h1>
-    </noscript>
+<noscript><h1>Please enable JavaScript.</h1></noscript>
+<div id="movingDiv"></div>
+<div id="UI">
+    <div class="mainSettingsWrapper">
+        <button class="mainToggles" id="showHide">
+            <svg id="visible" style="display:none;" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                 width="24px" fill="#000000">
+                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                <path d="M12 6c3.79 0 7.17 2.13 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5C4.83 8.13 8.21 6 12 6m0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14 12 14s-2.5-1.12-2.5-2.5S10.62 9 12 9m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"></path>
+            </svg>
+            <svg id="notVisible" style="display:block;" xmlns="http://www.w3.org/2000/svg" height="24px"
+                 viewBox="0 0 24 24" width="24px" fill="#000000">
+                <path d="M0 0h24v24H0V0zm0 0h24v24H0V0zm0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"></path>
+                <path d="M12 6c3.79 0 7.17 2.13 8.82 5.5-.59 1.22-1.42 2.27-2.41 3.12l1.41 1.41c1.39-1.23 2.49-2.77 3.18-4.53C21.27 7.11 17 4 12 4c-1.27 0-2.49.2-3.64.57l1.65 1.65C10.66 6.09 11.32 6 12 6zm-1.07 1.14L13 9.21c.57.25 1.03.71 1.28 1.28l2.07 2.07c.08-.34.14-.7.14-1.07C16.5 9.01 14.48 7 12 7c-.37 0-.72.05-1.07.14zM2.01 3.87l2.68 2.68C3.06 7.83 1.77 9.53 1 11.5 2.73 15.89 7 19 12 19c1.52 0 2.98-.29 4.32-.82l3.42 3.42 1.41-1.41L3.42 2.45 2.01 3.87zm7.5 7.5l2.61 2.61c-.04.01-.08.02-.12.02-1.38 0-2.5-1.12-2.5-2.5 0-.05.01-.08.01-.13zm-3.4-3.4l1.75 1.75c-.23.55-.36 1.15-.36 1.78 0 2.48 2.02 4.5 4.5 4.5.63 0 1.23-.13 1.77-.36l.98.98c-.88.24-1.8.38-2.75.38-3.79 0-7.17-2.13-8.82-5.5.7-1.43 1.72-2.61 2.93-3.53z"></path>
+            </svg>
+        </button>
+        <button class="mainToggles" id="stopStart">
+            <svg id="play" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"
+                 fill="#000000">
+                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                <path d="M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z"></path>
+            </svg>
+            <svg id="stop" data-bool="true" style="display: none;" xmlns="http://www.w3.org/2000/svg" height="24px"
+                 viewBox="0 0 24 24" width="24px" fill="#000000">
+                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                <path d="M16 8v8H8V8h8m2-2H6v12h12V6z"></path>
+            </svg>
+        </button>
+    </div>
+    <div id="settings">
+        <div class="inpWrapper">
+            <div class="inpItem">
+                <label for="changeVal">Speed</label>
+                <input type="number" pattern="d*" id="changeVal" value="2"></div>
+            <div class="inpItem">
+                <div class="label">Sets
+                    <button id="setButton">
+                        <svg style="display:none;" id="autoSet" xmlns="http://www.w3.org/2000/svg" height="24px"
+                             viewBox="0 0 24 24" width="24px" fill="#000000">
+                            <path d="M0 0h24v24H0V0z" fill="none"></path>
+                            <path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"></path>
+                        </svg>
+                        <svg id="manualSet" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                             width="24px" fill="#000000">
+                            <path d="M0 0h24v24H0V0z" fill="none"></path>
+                            <path d="M18.6 6.62c-1.44 0-2.8.56-3.77 1.53L7.8 14.39c-.64.64-1.49.99-2.4.99-1.87 0-3.39-1.51-3.39-3.38S3.53 8.62 5.4 8.62c.91 0 1.76.35 2.44 1.03l1.13 1 1.51-1.34L9.22 8.2C8.2 7.18 6.84 6.62 5.4 6.62 2.42 6.62 0 9.04 0 12s2.42 5.38 5.4 5.38c1.44 0 2.8-.56 3.77-1.53l7.03-6.24c.64-.64 1.49-.99 2.4-.99 1.87 0 3.39 1.51 3.39 3.38s-1.52 3.38-3.39 3.38c-.9 0-1.76-.35-2.44-1.03l-1.14-1.01-1.51 1.34 1.27 1.12c1.02 1.01 2.37 1.57 3.82 1.57 2.98 0 5.4-2.41 5.4-5.38s-2.42-5.37-5.4-5.37z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <input type="number" pattern="d*" id="changeSet" data-bool="true" value="2"></div>
+            <div class="inpItem">
+                <label for="changeTime">Time (Seconds)
+                    <button id="timeButton" style="margin: 0px;">
+                        <svg style="display:none;" id="autoTime" xmlns="http://www.w3.org/2000/svg" height="24px"
+                             viewBox="0 0 24 24" width="24px" fill="#000000">
+                            <path d="M0 0h24v24H0V0z" fill="none"></path>
+                            <path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"></path>
+                        </svg>
+                        <svg id="manualTime" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                             width="24px" fill="#000000">
+                            <path d="M0 0h24v24H0V0z" fill="none"></path>
+                            <path d="M18.6 6.62c-1.44 0-2.8.56-3.77 1.53L7.8 14.39c-.64.64-1.49.99-2.4.99-1.87 0-3.39-1.51-3.39-3.38S3.53 8.62 5.4 8.62c.91 0 1.76.35 2.44 1.03l1.13 1 1.51-1.34L9.22 8.2C8.2 7.18 6.84 6.62 5.4 6.62 2.42 6.62 0 9.04 0 12s2.42 5.38 5.4 5.38c1.44 0 2.8-.56 3.77-1.53l7.03-6.24c.64-.64 1.49-.99 2.4-.99 1.87 0 3.39 1.51 3.39 3.38s-1.52 3.38-3.39 3.38c-.9 0-1.76-.35-2.44-1.03l-1.14-1.01-1.51 1.34 1.27 1.12c1.02 1.01 2.37 1.57 3.82 1.57 2.98 0 5.4-2.41 5.4-5.38s-2.42-5.37-5.4-5.37z"></path>
+                        </svg>
+                    </button>
+                </label>
+                <input type="number" pattern="d*" id="changeTime" value="30" data-bool="true"></div>
+            <div class="inpItem">
+                <div class="label">Color</div>
+                <button class="colorBall" style="background-color: red;"></button>
+                <button class="colorBall" style="background-color: orange;"></button>
+                <button class="colorBall" style="background-color: lawngreen;"></button>
+                <button class="colorBall" style="background-color: green;"></button>
+                <button class="colorBall" style="background-color: aqua;"></button>
+                <button class="colorBall" style="background-color: blueviolet;"></button>
+                <button class="colorBall" style="background-color: violet;"></button>
+                <input type="color" id="colorPal"></div>
+            <div class="inpItem">
+                <div class="label">Background</div>
+                <button class="colorBall" style="background-color: black;"></button>
+                <button class="colorBall" style="background-color: grey;"></button>
+                <button class="colorBall" style="background-color: white;"></button>
+                <input type="color" id="backgroundPal"></div>
+            <div class="inpItem">
+                <div class="label">Size</div>
+                <div style="display: flex; align-items: center;">
+                    <button class="sizeBall" style="width: 2em; height: 2em;"></button>
+                    <button class="sizeBall" style="width: 2.5em; height: 2.5em;"></button>
+                    <button class="sizeBall" style="width: 3em; height: 3em;"></button>
+                    <input type="number" id="customBallSize" placeholder="300"></div>
+            </div>
+            <div class="inpItem">
+                <div class="label">Direction</div>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                         viewBox="0 0 24 24" width="24px" fill="#000000">
+                        <rect fill="none" height="24" width="24"></rect>
+                        <path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"></path>
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                         viewBox="0 0 24 24" width="24px" fill="#000000">
+                        <rect fill="none" height="24" width="24"></rect>
+                        <path d="M19,9h-2v6.59L5.41,4L4,5.41L15.59,17H9v2h10V9z"></path>
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                         viewBox="0 0 24 24" width="24px" fill="#000000">
+                        <rect fill="none" height="24" width="24"></rect>
+                        <path d="M15,19v-2H8.41L20,5.41L18.59,4L7,15.59V9H5v10H15z"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="inpItem">
+                <div class="label">Sound
+                    <button id="soundButton">
+                        <svg id="soundOn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24"
+                             width="24px" fill="#000000">
+                            <path d="M0 0h24v24H0V0z" fill="none"></path>
+                            <path d="M3 9v6h4l5 5V4L7 9H3zm7-.17v6.34L7.83 13H5v-2h2.83L10 8.83zM16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"></path>
+                        </svg>
+                        <svg id="soundOff" style="display:none;" xmlns="http://www.w3.org/2000/svg" height="24px"
+                             viewBox="0 0 24 24" width="24px" fill="#000000">
+                            <path d="M0 0h24v24H0V0z" fill="none"></path>
+                            <path d="M4.34 2.93L2.93 4.34 7.29 8.7 7 9H3v6h4l5 5v-6.59l4.18 4.18c-.65.49-1.38.88-2.18 1.11v2.06c1.34-.3 2.57-.92 3.61-1.75l2.05 2.05 1.41-1.41L4.34 2.93zM10 15.17L7.83 13H5v-2h2.83l.88-.88L10 11.41v3.76zM19 12c0 .82-.15 1.61-.41 2.34l1.53 1.53c.56-1.17.88-2.48.88-3.87 0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zm-7-8l-1.88 1.88L12 7.76zm4.5 8c0-1.77-1.02-3.29-2.5-4.03v1.79l2.48 2.48c.01-.08.02-.16.02-.24z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div style="display:none;" id="soundSettings" data-bool="false">
+                    <label for="fIn">Frequency</label>
+                    <input type="number" pattern="d*" id="fIn" value="500">
+                    <br>
+                    <label for="tIn">Type</label>
+                    <select id="tIn">
+                        <option value="sine">sine</option>
+                        <option value="square">square</option>
+                        <option value="sawtooth">sawtooth</option>
+                        <option value="triangle">triangle</option>
+                    </select>
+                </div>
+            </div>
+            <div class="inpItem helpItem">
+                <p>You can find more information and how all this works
+                    <a target="_blank" href="https://github.com/MaxAFriedrich/EMDR/wiki">here</a>.
+                    You can <a target="_blank" href="https://gitreports.com/issue/MaxAFriedrich/EMDR">click here</a> to
+                    make a suggestion or report a bug. You can find the github repository
+                    <a class="gitEl" target="_blank" href="https://github.com/MaxAFriedrich/EMDR">here</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/bundle.js"></script>
 </body>
 
 </html>
