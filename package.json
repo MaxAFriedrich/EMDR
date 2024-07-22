@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc && grunt",
-    "lint": "eslint -c .eslintrc --ext .ts ./src"
+    "lint": "eslint -c .eslintrc --ext .ts ./src",
   },
   "repository": {
     "type": "git",

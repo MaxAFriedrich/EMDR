@@ -2,8 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitAny": true,
-    "sourceMap": true,
-    "outDir": "srcjs/",
+    "sourceMap": false,
+    "outDir": "dist/",
     "baseUrl": ".",
     "lib":["ES2015","DOM"],
     "paths": {

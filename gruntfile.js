@@ -27,9 +27,10 @@ module.exports = function (grunt) {
             }
         }, copy: {
             main: {
-                expand: true, files: {
-                    'dist/': ['static/.']
-                }
+                expand: true,
+                cwd: 'static/',
+                src: '**',
+                dest: 'dist/'
             }
         }, inline: {
             dist: {
