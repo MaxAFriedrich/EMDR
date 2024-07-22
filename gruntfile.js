@@ -27,23 +27,20 @@ module.exports = function (grunt) {
             }
         }, copy: {
             main: {
-                expand: true,
-                cwd: 'static/',
-                src: '**',
-                dest: 'dist/'
+                expand: true, cwd: 'static/', src: '**', dest: 'dist/'
             }
-        }, inline: {
-            dist: {
-                options: {
-                    cssmin: true,
-                }, src: 'dist/index.html', dest: 'dist/index.html'
-            }
+        }, cssmin: {
+            target: {
+                files: [{
+                    expand: true, cwd: 'dist/', src: ['*.css', '!*.min.css'], dest: 'dist/', ext: '.css'
+                }]
+            },
         }
+
     });
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-inline');
-
-    grunt.registerTask('default', ['uglify', 'htmlmin', 'copy', 'inline']);
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.registerTask('default', ['uglify', 'htmlmin', 'copy', 'cssmin']);
 };
