@@ -11,12 +11,6 @@ module.exports = function (grunt) {
                     }
                 }
             }
-        }, uglify: {
-            build: {
-                options: {
-                    ie8: true
-                }, src: 'dist/main.js', dest: 'dist/main.js'
-            }
         }, htmlmin: {
             dist: {
                 options: {
@@ -35,12 +29,34 @@ module.exports = function (grunt) {
                     expand: true, cwd: 'dist/', src: ['*.css', '!*.min.css'], dest: 'dist/', ext: '.css'
                 }]
             },
-        }
+        }, browserify: {
+            dist: {
+                options: {
+                    transform: [['babelify', {presets: ['@babel/preset-env']}]]
+                }, files: {
+                    'dist/bundle.js': ['dist/main.js']
+                }
+            }
+        }, clean: {
+            js: {
+                src: ['dist/**/*.js', '!dist/bundle.js']
+            }
+        }, uglify: {
+            build: {
+                options: {
+                    ie8: true
+                }, src: 'dist/bundle.js', dest: 'dist/bundle.js'
+            }
+        },
 
     });
+
+    grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.registerTask('default', ['uglify', 'htmlmin', 'copy', 'cssmin']);
+    grunt.loadNpmTasks('grunt-contrib-clean');
+
+    grunt.registerTask('default', ['htmlmin', 'copy', 'cssmin', 'browserify', 'uglify', 'clean']);
 };
