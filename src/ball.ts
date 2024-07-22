@@ -24,19 +24,21 @@ let oppositeDirection = false;
  * moves the ball horizontally; ball.dirSet=0
  */
 function horizontalDirection() {
+    console.log("horizontal")
     UI.ball.css("right", `${BallState.ballPosition}px`);
     UI.ball.css("top", `${UI.window.height() / 2}px`);
-    UI.ball.css("left", "");
+    UI.ball.css("left", "unset");
 }
 
 /**
  * moves the ball diagonally from left to right; ball.dirSet=1
  */
 function leftToRight() {
+    console.log("left to right")
     const diagAngle = Math.atan(UI.window.height() / UI.window.width());
     const sineAns = Math.sin(diagAngle) * BallState.ballPosition;
     const cosAns = Math.cos(diagAngle) * BallState.ballPosition;
-    UI.ball.css("right", "");
+    UI.ball.css("right", "unset");
     UI.ball.css("top", `${sineAns}px`);
     UI.ball.css("left", `${cosAns}px`);
 }
@@ -45,10 +47,11 @@ function leftToRight() {
  * moves the ball diagonally from right to left; ball.dirSet=2
  */
 function rightToLeft() {
+    console.log("right to left")
     const diagAngle = Math.atan(UI.window.height() / UI.window.width());
     const sineAns = Math.sin(diagAngle) * BallState.ballPosition;
     const cosAns = Math.cos(diagAngle) * BallState.ballPosition;
-    UI.ball.css("left", "");
+    UI.ball.css("left", "unset");
     UI.ball.css("top", `${sineAns}px`);
     UI.ball.css("right", `${cosAns}px`);
 }

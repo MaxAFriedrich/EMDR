@@ -99,6 +99,11 @@ input[type="number"] {
     min-height: 4.5rem;
 }
 
+.inputDualLine{
+    display: flex;
+    flex-direction: column;
+}
+
 .helpItem {
     flex: 2 0 50%;
     height: auto;
