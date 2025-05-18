@@ -1,5 +1,7 @@
 import {BallDirection, BallState, startBallInterval} from "./ball";
 import {UI} from "./ui";
+import {Params} from "./query";
+import {Debug} from "./debug";
 
 function setEvents() {
     UI.showHide.event(() => {
@@ -73,9 +75,10 @@ function setEvents() {
     })
 
     UI.ballDirection.event((e) => {
-        function getParentButton(e: EventTarget):EventTarget {
+        function getParentButton(e: EventTarget): EventTarget {
             return (e as HTMLElement).tagName === "BUTTON" ? e : getParentButton((e as HTMLElement).parentElement)
         }
+
         BallState.dirSet = parseInt((getParentButton(e.target) as HTMLElement).attributes.getNamedItem("data-direction").value) as BallDirection
     })
 
@@ -88,6 +91,9 @@ function setEvents() {
 }
 
 function main() {
+    Params.loadParams()
+    Debug.init()
+
     startBallInterval()
     setEvents()
 }

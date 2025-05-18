@@ -1,5 +1,6 @@
 import {UI} from "./ui";
 import {beep} from "./audio";
+import {Debug} from "./debug";
 
 export enum BallDirection {
     horizontal,
@@ -19,6 +20,10 @@ export const BallState = {
 
 
 let oppositeDirection = false;
+
+function logState() {
+    Debug.log(`BallState: ${JSON.stringify(BallState)} Right: ${UI.ball.css("right")} Top: ${UI.ball.css("top")} Left: ${UI.ball.css("left")}`);
+}
 
 /**
  * moves the ball horizontally; ball.dirSet=0
@@ -108,6 +113,7 @@ function updateUIAfterMovement() {
             rightToLeft();
             break;
     }
+    logState()
 }
 
 function checkConditions(): boolean {
